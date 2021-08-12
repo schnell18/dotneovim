@@ -55,7 +55,7 @@ dotneovim 是一种高效的管理 Vim 配置及插件的方式。
 
 可使用 homebrew 安装 ripgrep, gh, rust\_analyzer :
 
-    brew install ripgrep gh rust\_analyzer
+    brew install ripgrep gh rust_analyzer
 
 安装 gopls 请使用以下命令:
 
