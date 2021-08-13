@@ -2,9 +2,6 @@ set nocompatible
 
 call plug#begin('~/.config/nvim/plugged')
 
-" Startup screen
-Plug 'mhinz/vim-startify'
-
 " Sensible default
 Plug 'tpope/vim-sensible'
 
@@ -48,8 +45,16 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'godlygeek/tabular'
 Plug 'hotoo/pangu.vim'
-
+" Java JDT Language Server
+Plug 'mfussenegger/nvim-jdtls'
 call plug#end()
+
+" enable jdtls for java files
+augroup lsp
+  au!
+  au FileType java lua require('jdtls_config').setup()
+
+augroup end
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
