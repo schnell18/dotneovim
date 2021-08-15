@@ -1,4 +1,5 @@
 set nocompatible
+set mouse+=a
 
 call plug#begin('~/.config/nvim/plugged')
 
@@ -47,7 +48,127 @@ Plug 'godlygeek/tabular'
 Plug 'hotoo/pangu.vim'
 " Java JDT Language Server
 Plug 'mfussenegger/nvim-jdtls'
+
+" golang development
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" startup screen
+Plug 'glepnir/dashboard-nvim'
+
+Plug 'folke/which-key.nvim'
+
+" powerful tab
+Plug 'romgrk/barbar.nvim'
+
+Plug 'folke/todo-comments.nvim'
+
 call plug#end()
+
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+" NOTE: If barbar's option dict isn't created yet, create it
+let bufferline = get(g:, 'bufferline', {})
+" Enable/disable auto-hiding the tab bar when there is a single buffer
+let bufferline.auto_hide = v:true
+" Enable/disable close button
+let bufferline.closable = v:true
+
+" Enables/disable clickable tabs
+"  - left-click: go to buffer
+"  - middle-click: delete buffer
+let bufferline.clickable = v:true
+" Move to previous/next
+nnoremap <silent>    <A-,> :BufferPrevious<CR>
+nnoremap <silent>    <A-.> :BufferNext<CR>
+" Re-order to previous/next
+nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
+nnoremap <silent>    <A->> :BufferMoveNext<CR>
+" Goto buffer in position...
+nnoremap <silent>    <A-1> :BufferGoto 1<CR>
+nnoremap <silent>    <A-2> :BufferGoto 2<CR>
+nnoremap <silent>    <A-3> :BufferGoto 3<CR>
+nnoremap <silent>    <A-4> :BufferGoto 4<CR>
+nnoremap <silent>    <A-5> :BufferGoto 5<CR>
+nnoremap <silent>    <A-6> :BufferGoto 6<CR>
+nnoremap <silent>    <A-7> :BufferGoto 7<CR>
+nnoremap <silent>    <A-8> :BufferGoto 8<CR>
+nnoremap <silent>    <A-9> :BufferLast<CR>
+" Pin/unpin buffer
+nnoremap <silent>    <A-p> :BufferPin<CR>
+" Close buffer
+nnoremap <silent>    <A-c> :BufferClose<CR>
+" Wipeout buffer
+"                          :BufferWipeout<CR>
+" Close commands
+"                          :BufferCloseAllButCurrent<CR>
+"                          :BufferCloseAllButPinned<CR>
+"                          :BufferCloseBuffersLeft<CR>
+"                          :BufferCloseBuffersRight<CR>
+" Magic buffer-picking mode
+nnoremap <silent> <C-s>    :BufferPick<CR>
+" Sort automatically by...
+nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
+nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
+nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
+nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
+
+" Other:
+" :BarbarEnable - enables barbar (enabled by default)
+" :BarbarDisable - very bad command, should never be used
+
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+" startup screen configuration
+" let g:mapleader="\<Space>"
+let g:dashboard_default_executive ='telescope'
+
+" let g:dashboard_custom_header = [
+"       \'   ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣴⣶⣶⣶⣶⣶⠶⣶⣤⣤⣀⠀⠀⠀⠀⠀⠀ ',
+"       \' ⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⠁⠀⢀⠈⢿⢀⣀⠀⠹⣿⣿⣿⣦⣄⠀⠀⠀ ',
+"       \' ⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⠿⠀⠀⣟⡇⢘⣾⣽⠀⠀⡏⠉⠙⢛⣿⣷⡖⠀ ',
+"       \' ⠀⠀⠀⠀⠀⣾⣿⣿⡿⠿⠷⠶⠤⠙⠒⠀⠒⢻⣿⣿⡷⠋⠀⠴⠞⠋⠁⢙⣿⣄ ',
+"       \' ⠀⠀⠀⠀⢸⣿⣿⣯⣤⣤⣤⣤⣤⡄⠀⠀⠀⠀⠉⢹⡄⠀⠀⠀⠛⠛⠋⠉⠹⡇ ',
+"       \' ⠀⠀⠀⠀⢸⣿⣿⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣼⣇⣀⣀⣀⣛⣛⣒⣲⢾⡷ ',
+"       \' ⢀⠤⠒⠒⢼⣿⣿⠶⠞⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣼⠃ ',
+"       \' ⢮⠀⠀⠀⠀⣿⣿⣆⠀⠀⠻⣿⡿⠛⠉⠉⠁⠀⠉⠉⠛⠿⣿⣿⠟⠁⠀⣼⠃⠀ ',
+"       \' ⠈⠓⠶⣶⣾⣿⣿⣿⣧⡀⠀⠈⠒⢤⣀⣀⡀⠀⠀⣀⣀⡠⠚⠁⠀⢀⡼⠃⠀⠀ ',
+"       \' ⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣷⣤⣤⣤⣤⣭⣭⣭⣭⣭⣥⣤⣤⣤⣴⣟⠁    ',
+"       \ ]
+
+let g:dashboard_custom_header = [
+\ '                                                       ',
+\ '                                                       ',
+\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\ '                                                       ',
+\ '                                                       ',
+\]
+
+let g:dashboard_custom_shortcut={
+\ 'new_file'           : 'leader c n',
+\ 'last_session'       : 'leader s l',
+\ 'find_history'       : 'leader f h',
+\ 'find_file'          : 'leader f f',
+\ 'change_colorscheme' : 'leader t c',
+\ 'find_word'          : 'leader f g',
+\ 'book_marks'         : 'leader f b',
+\ }
 
 " enable jdtls for java files
 augroup lsp
@@ -78,7 +199,7 @@ set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set expandtab
 set smartindent
-set tabstop=4 softtabstop=4
+set tabstop=4 shiftwidth=4 softtabstop=4
 set cmdheight=2
 set updatetime=50
 set signcolumn=yes
@@ -143,13 +264,15 @@ nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
     end
   end
 
-  local servers = {'pyright', 'gopls', 'rust_analyzer'}
+  local servers = {'pyright', 'rust_analyzer'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
     }
   end
 EOF
+
+" local servers = {'pyright', 'gopls', 'rust_analyzer'}
 
 " Completion
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
@@ -245,6 +368,18 @@ augroup Binary
   au BufWritePost *.class if &bin | %!xxd
   au BufWritePost *.class set nomod | endif
 augroup END
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 "Try to install new plugin
 "autocmd VimEnter * PlugInstall
