@@ -36,6 +36,8 @@ Plug 'glepnir/galaxyline.nvim'
 " Debugging
 Plug 'nvim-telescope/telescope-dap.nvim'
 Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'mfussenegger/nvim-dap-python'
 
 " Github integration
@@ -50,7 +52,8 @@ Plug 'hotoo/pangu.vim'
 Plug 'mfussenegger/nvim-jdtls'
 
 " golang development
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'ray-x/go.nvim'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " startup screen
 Plug 'glepnir/dashboard-nvim'
@@ -62,7 +65,101 @@ Plug 'romgrk/barbar.nvim'
 
 Plug 'folke/todo-comments.nvim'
 
+" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+" Plug 'ray-x/navigator.lua'
+
 call plug#end()
+
+" lua <<EOF
+" require('navigator').setup({
+"   debug = false, -- log output
+"   code_action_icon = " ",
+"   width = 0.75, -- max width ratio (number of cols for the floating window) / (window width)
+"   height = 0.3, -- max list window height, 0.3 by default
+"   preview_height = 0.35, -- max height of preview windows
+"   border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}, -- border style, can be one of 'none', 'single', 'double',
+"                                                      -- 'shadow', or a list of chars which defines the border
+"   on_attach = function(client, bufnr)
+"     -- your hook
+"   end,
+"   -- put a on_attach of your own here, e.g
+"   -- function(client, bufnr)
+"   --   -- the on_attach will be called at end of navigator on_attach
+"   -- end,
+"   -- The attach code will apply to all LSP clients
+
+"   default_mapping = true,  -- set to false if you will remap every key
+"   keymaps = {{key = "gK", func = "declaration()"}}, -- a list of key maps
+"   -- this kepmap gK will override "gD" mapping function declaration()  in default kepmap
+"   -- please check mapping.lua for all keymaps
+"   treesitter_analysis = true, -- treesitter variable context
+"   code_action_prompt = {enable = true, sign = true, sign_priority = 40, virtual_text = true},
+"   icons = {
+"     -- Code action
+"     code_action_icon = " ",
+"     -- Diagnostics
+"     diagnostic_head = '🐛',
+"     diagnostic_head_severity_1 = "🈲",
+"     -- refer to lua/navigator.lua for more icons setups
+"   },
+"   lspinstall = false, -- set to true if you would like use the lsp installed by lspinstall
+
+"   lsp = {
+"     format_on_save = true, -- set to false to disasble lsp code format on save (if you are using prettier/efm/formater etc)
+"     diag_scroll_bar_sign = nil, -- experimental: set to {'╍', 'ﮆ'} to enable diagnostic status in scroll bar area
+
+"     disply_diagnostic_qf = true, -- always show quickfix if there are diagnostic errors, set to false if you  want to ignore it
+"     tsserver = {
+"       filetypes = {'typescript'} -- disable javascript etc,
+"       -- set to {} to disable the lspclient for all filetypes
+"     },
+"     gopls = {   -- gopls setting
+"       on_attach = function(client, bufnr)  -- on_attach for gopls
+"         -- your special on attach here
+"         -- e.g. disable gopls format because a known issue https://github.com/golang/go/issues/45732
+"         print("i am a hook, I will disable document format")
+"         client.resolved_capabilities.document_formatting = false
+"       end,
+"       settings = {
+"         gopls = {gofumpt = false} -- disable gofumpt etc,
+"       }
+"     },
+"     sumneko_lua = {
+"       sumneko_root_path = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server",
+"       sumneko_binary = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server/bin/macOS/lua-language-server",
+"     },
+"   }
+" })
+" EOF
+
+" setup ray-x/go.vim
+autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
+lua << EOF
+  require("go").setup({
+    goimport='gofumports', -- goimport command
+    --gofmt = 'gofumpt', --gofmt cmd,
+    max_line_len = 120, -- max line length in goline format
+    tag_transform = false, -- tag_transfer  check gomodifytags for details
+    test_template = '',
+    test_template_dir = '', 
+    comment_placeholder = '' ,
+    verbose = true,  -- output loginf in messages
+    lsp_cfg = true, -- true: apply go.nvim non-default gopls setup
+    lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
+    lsp_on_attach = true, 
+    gopls_cmd = {"/home/justin/go/bin/gopls", "-logfile", "/home/justin/.local/gopls.log" },
+    lsp_diag_hdlr = true, -- hook lsp diag handler
+    dap_debug = true, -- set to true to enable dap
+    dap_debug_keymap = true, -- set keymaps for debugger
+    dap_debug_gui = true, -- set to true to enable dap gui, highly recommand
+    dap_debug_vt = true -- set to true to enable dap virtual text
+
+  })
+
+  -- key bindings
+  vim.cmd("autocmd FileType go nmap <Leader>gl GoLint")
+  vim.cmd("autocmd FileType go nmap <Leader>gc :lua require('go.comment').gen()")
+EOF
 
 lua << EOF
   require("todo-comments").setup {
