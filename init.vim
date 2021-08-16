@@ -65,10 +65,14 @@ Plug 'romgrk/barbar.nvim'
 
 Plug 'folke/todo-comments.nvim'
 
-" Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
-" Plug 'ray-x/navigator.lua'
+Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
+Plug 'ray-x/navigator.lua'
 
 call plug#end()
+
+lua <<EOF
+require('navigator').setup()
+EOF
 
 " lua <<EOF
 " require('navigator').setup({
@@ -361,7 +365,7 @@ nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
     end
   end
 
-  local servers = {'pyright', 'rust_analyzer'}
+  local servers = {'pyright', 'texlab', 'sumneko_lua', 'rust_analyzer'}
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup {
       on_attach = on_attach,
