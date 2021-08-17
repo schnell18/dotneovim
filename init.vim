@@ -11,6 +11,7 @@ Plug 'sainnhe/edge'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
+Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
 
 " Code snippets
@@ -45,7 +46,6 @@ Plug 'pwntester/octo.nvim'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
 Plug 'godlygeek/tabular'
 Plug 'hotoo/pangu.vim'
 " Java JDT Language Server
@@ -70,108 +70,12 @@ Plug 'ray-x/navigator.lua'
 
 call plug#end()
 
-lua <<EOF
-require('navigator').setup()
-EOF
-
-" lua <<EOF
-" require('navigator').setup({
-"   debug = false, -- log output
-"   code_action_icon = " ",
-"   width = 0.75, -- max width ratio (number of cols for the floating window) / (window width)
-"   height = 0.3, -- max list window height, 0.3 by default
-"   preview_height = 0.35, -- max height of preview windows
-"   border = {"╭", "─", "╮", "│", "╯", "─", "╰", "│"}, -- border style, can be one of 'none', 'single', 'double',
-"                                                      -- 'shadow', or a list of chars which defines the border
-"   on_attach = function(client, bufnr)
-"     -- your hook
-"   end,
-"   -- put a on_attach of your own here, e.g
-"   -- function(client, bufnr)
-"   --   -- the on_attach will be called at end of navigator on_attach
-"   -- end,
-"   -- The attach code will apply to all LSP clients
-
-"   default_mapping = true,  -- set to false if you will remap every key
-"   keymaps = {{key = "gK", func = "declaration()"}}, -- a list of key maps
-"   -- this kepmap gK will override "gD" mapping function declaration()  in default kepmap
-"   -- please check mapping.lua for all keymaps
-"   treesitter_analysis = true, -- treesitter variable context
-"   code_action_prompt = {enable = true, sign = true, sign_priority = 40, virtual_text = true},
-"   icons = {
-"     -- Code action
-"     code_action_icon = " ",
-"     -- Diagnostics
-"     diagnostic_head = '🐛',
-"     diagnostic_head_severity_1 = "🈲",
-"     -- refer to lua/navigator.lua for more icons setups
-"   },
-"   lspinstall = false, -- set to true if you would like use the lsp installed by lspinstall
-
-"   lsp = {
-"     format_on_save = true, -- set to false to disasble lsp code format on save (if you are using prettier/efm/formater etc)
-"     diag_scroll_bar_sign = nil, -- experimental: set to {'╍', 'ﮆ'} to enable diagnostic status in scroll bar area
-
-"     disply_diagnostic_qf = true, -- always show quickfix if there are diagnostic errors, set to false if you  want to ignore it
-"     tsserver = {
-"       filetypes = {'typescript'} -- disable javascript etc,
-"       -- set to {} to disable the lspclient for all filetypes
-"     },
-"     gopls = {   -- gopls setting
-"       on_attach = function(client, bufnr)  -- on_attach for gopls
-"         -- your special on attach here
-"         -- e.g. disable gopls format because a known issue https://github.com/golang/go/issues/45732
-"         print("i am a hook, I will disable document format")
-"         client.resolved_capabilities.document_formatting = false
-"       end,
-"       settings = {
-"         gopls = {gofumpt = false} -- disable gofumpt etc,
-"       }
-"     },
-"     sumneko_lua = {
-"       sumneko_root_path = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server",
-"       sumneko_binary = vim.fn.expand("$HOME") .. "/github/sumneko/lua-language-server/bin/macOS/lua-language-server",
-"     },
-"   }
-" })
-" EOF
-
 " setup ray-x/go.vim
 autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
-lua << EOF
-  require("go").setup({
-    goimport='gofumports', -- goimport command
-    --gofmt = 'gofumpt', --gofmt cmd,
-    max_line_len = 120, -- max line length in goline format
-    tag_transform = false, -- tag_transfer  check gomodifytags for details
-    test_template = '',
-    test_template_dir = '', 
-    comment_placeholder = '' ,
-    verbose = true,  -- output loginf in messages
-    lsp_cfg = true, -- true: apply go.nvim non-default gopls setup
-    lsp_gofumpt = true, -- true: set default gofmt in gopls format to gofumpt
-    lsp_on_attach = true, 
-    gopls_cmd = {"/home/justin/go/bin/gopls", "-logfile", "/home/justin/.local/gopls.log" },
-    lsp_diag_hdlr = true, -- hook lsp diag handler
-    dap_debug = true, -- set to true to enable dap
-    dap_debug_keymap = true, -- set keymaps for debugger
-    dap_debug_gui = true, -- set to true to enable dap gui, highly recommand
-    dap_debug_vt = true -- set to true to enable dap virtual text
+lua require("xraygo")
+lua require("navigator")
 
-  })
-
-  -- key bindings
-  vim.cmd("autocmd FileType go nmap <Leader>gl GoLint")
-  vim.cmd("autocmd FileType go nmap <Leader>gc :lua require('go.comment').gen()")
-EOF
-
-lua << EOF
-  require("todo-comments").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
+lua require("eviline")
 
 " NOTE: If barbar's option dict isn't created yet, create it
 let bufferline = get(g:, 'bufferline', {})
@@ -223,14 +127,6 @@ nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
 " :BarbarEnable - enables barbar (enabled by default)
 " :BarbarDisable - very bad command, should never be used
 
-lua << EOF
-  require("which-key").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-EOF
-
 " startup screen configuration
 " let g:mapleader="\<Space>"
 let g:dashboard_default_executive ='telescope'
@@ -272,9 +168,9 @@ let g:dashboard_custom_shortcut={
 \ }
 
 " enable jdtls for java files
-augroup lsp
+augroup java
   au!
-  au FileType java lua require('jdtls_config').setup()
+  au FileType java lua require('java')
 
 augroup end
 
@@ -313,68 +209,6 @@ augroup END
 
 nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
 
-" -------------------- LSP ---------------------------------
-:lua << EOF
-  local nvim_lsp = require('lspconfig')
-
-  local on_attach = function(client, bufnr)
-    require('completion').on_attach()
-
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings
-    local opts = { noremap=true, silent=true }
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-
-    -- Set some keybinds conditional on server capabilities
-    if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    end
-
-    -- Set autocommands conditional on server_capabilities
-    if client.resolved_capabilities.document_highlight then
-        vim.api.nvim_exec([[
-        hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-        hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-        augroup lsp_document_highlight
-            autocmd!
-            autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-            autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-        augroup END
-        ]], false)
-    end
-  end
-
-  local servers = {'pyright', 'texlab', 'sumneko_lua', 'rust_analyzer'}
-  for _, lsp in ipairs(servers) do
-    nvim_lsp[lsp].setup {
-      on_attach = on_attach,
-    }
-  end
-EOF
-
-" local servers = {'pyright', 'gopls', 'rust_analyzer'}
-
 " Completion
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -391,35 +225,26 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fl <cmd>Telescope git_files<cr>
 
-" Syntax
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  highlight = {
-    enable = true
-  },
-  playground = {
-    enable = true,
-    disable = {},
-    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
-    persist_queries = false -- Whether the query persists across vim sessions
-  }
-}
-EOF
-
 " File explorer
 nnoremap <leader>tt :NvimTreeToggle<CR>
 nnoremap <leader>tr :NvimTreeRefresh<CR>
 nnoremap <leader>tn :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
-" Status line
-luafile ~/.config/nvim/eviline.lua
+" treesitter
+lua require("treesitter")
+
+" which key
+lua require("whichkey")
+
+" todo comments
+lua require("todo")
+
+" LSP
+lua require("lspcnf")
 
 " Debugging
-lua <<EOF
-require('telescope').load_extension('dap')
-require('dap-python').setup('/usr/bin/python')
-EOF
+lua require("debug")
 nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
 nnoremap <silent> <leader>dd :lua require('dap').continue()<CR>
 nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
@@ -479,8 +304,6 @@ function! s:build_go_files()
     call go#cmd#Build(0)
   endif
 endfunction
-
-autocmd FileType go nmap <leader>b :<C-u>call <SID>build_go_files()<CR>
 
 "Try to install new plugin
 "autocmd VimEnter * PlugInstall
