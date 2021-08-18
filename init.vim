@@ -70,12 +70,30 @@ Plug 'ray-x/navigator.lua'
 
 call plug#end()
 
+" treesitter
+lua require("treesitter")
+
+" which key
+lua require("whichkey")
+
+" todo comments
+lua require("todo")
+
+" LSP
+lua require("lspcnf")
+
+" enable jdtls for java files
+augroup java
+  au!
+  au FileType java lua require('java')
+augroup end
+
 " setup ray-x/go.vim
 autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
 lua require("xraygo")
 lua require("navigator")
-
 lua require("eviline")
+lua require("barbar")
 
 " NOTE: If barbar's option dict isn't created yet, create it
 let bufferline = get(g:, 'bufferline', {})
@@ -88,44 +106,6 @@ let bufferline.closable = v:true
 "  - left-click: go to buffer
 "  - middle-click: delete buffer
 let bufferline.clickable = v:true
-" Move to previous/next
-nnoremap <silent>    <A-,> :BufferPrevious<CR>
-nnoremap <silent>    <A-.> :BufferNext<CR>
-" Re-order to previous/next
-nnoremap <silent>    <A-<> :BufferMovePrevious<CR>
-nnoremap <silent>    <A->> :BufferMoveNext<CR>
-" Goto buffer in position...
-nnoremap <silent>    <A-1> :BufferGoto 1<CR>
-nnoremap <silent>    <A-2> :BufferGoto 2<CR>
-nnoremap <silent>    <A-3> :BufferGoto 3<CR>
-nnoremap <silent>    <A-4> :BufferGoto 4<CR>
-nnoremap <silent>    <A-5> :BufferGoto 5<CR>
-nnoremap <silent>    <A-6> :BufferGoto 6<CR>
-nnoremap <silent>    <A-7> :BufferGoto 7<CR>
-nnoremap <silent>    <A-8> :BufferGoto 8<CR>
-nnoremap <silent>    <A-9> :BufferLast<CR>
-" Pin/unpin buffer
-nnoremap <silent>    <A-p> :BufferPin<CR>
-" Close buffer
-nnoremap <silent>    <A-c> :BufferClose<CR>
-" Wipeout buffer
-"                          :BufferWipeout<CR>
-" Close commands
-"                          :BufferCloseAllButCurrent<CR>
-"                          :BufferCloseAllButPinned<CR>
-"                          :BufferCloseBuffersLeft<CR>
-"                          :BufferCloseBuffersRight<CR>
-" Magic buffer-picking mode
-nnoremap <silent> <C-s>    :BufferPick<CR>
-" Sort automatically by...
-nnoremap <silent> <Space>bb :BufferOrderByBufferNumber<CR>
-nnoremap <silent> <Space>bd :BufferOrderByDirectory<CR>
-nnoremap <silent> <Space>bl :BufferOrderByLanguage<CR>
-nnoremap <silent> <Space>bw :BufferOrderByWindowNumber<CR>
-
-" Other:
-" :BarbarEnable - enables barbar (enabled by default)
-" :BarbarDisable - very bad command, should never be used
 
 " startup screen configuration
 " let g:mapleader="\<Space>"
@@ -166,13 +146,6 @@ let g:dashboard_custom_shortcut={
 \ 'find_word'          : 'leader f g',
 \ 'book_marks'         : 'leader f b',
 \ }
-
-" enable jdtls for java files
-augroup java
-  au!
-  au FileType java lua require('java')
-
-augroup end
 
 " Automatically install missing plugins on startup
 autocmd VimEnter *
@@ -231,17 +204,6 @@ nnoremap <leader>tr :NvimTreeRefresh<CR>
 nnoremap <leader>tn :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
-" treesitter
-lua require("treesitter")
-
-" which key
-lua require("whichkey")
-
-" todo comments
-lua require("todo")
-
-" LSP
-lua require("lspcnf")
 
 " Debugging
 lua require("debug")

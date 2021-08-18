@@ -27,17 +27,8 @@ require('navigator').setup({
 
   lsp = {
     format_on_save = true,
-    diag_scroll_bar_sign = nil,
+    -- diag_scroll_bar_sign = nil,
 
     disply_diagnostic_qf = true,
-    gopls = {   -- gopls setting
-      on_attach = function(client, bufnr)
-        print("i am a hook, I will disable document format")
-        client.resolved_capabilities.document_formatting = false
-      end,
-      settings = {
-        gopls = {gofumpt = false}
-      }
-    },
   }
 })
