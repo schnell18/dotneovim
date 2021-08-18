@@ -64,6 +64,7 @@ Plug 'folke/which-key.nvim'
 Plug 'romgrk/barbar.nvim'
 
 Plug 'folke/todo-comments.nvim'
+Plug 'folke/trouble.nvim'
 
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 Plug 'ray-x/navigator.lua'
@@ -94,6 +95,9 @@ lua require("xraygo")
 lua require("navigator")
 lua require("eviline")
 lua require("barbar")
+" treesitter
+lua require("troublecnf")
+
 
 " NOTE: If barbar's option dict isn't created yet, create it
 let bufferline = get(g:, 'bufferline', {})
