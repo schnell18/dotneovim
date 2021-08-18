@@ -49,11 +49,7 @@ Plug 'tpope/vim-repeat'
 Plug 'godlygeek/tabular'
 Plug 'hotoo/pangu.vim'
 " Java JDT Language Server
-Plug 'mfussenegger/nvim-jdtls'
-
-" golang development
-Plug 'ray-x/go.nvim'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'mfussenegger/nvim-jdtls'
 
 " startup screen
 Plug 'glepnir/dashboard-nvim'
@@ -81,17 +77,17 @@ lua require("whichkey")
 lua require("todo")
 
 " LSP
-lua require("lspcnf")
+lua require("lspcommon")
 
 " enable jdtls for java files
-augroup java
-  au!
-  au FileType java lua require('java')
-augroup end
+" augroup java
+"   au!
+"   au FileType java lua require('java')
+" augroup end
 
-" setup ray-x/go.vim
-autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()
-lua require("xraygo")
+autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.go lua require("lspgo").goimports(1000)
+
 lua require("navigator")
 lua require("eviline")
 lua require("barbar")
