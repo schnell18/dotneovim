@@ -13,6 +13,8 @@ Plug 'sainnhe/edge'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
+Plug 'kosayoda/nvim-lightbulb'
+
 
 " Code snippets
 Plug 'SirVer/ultisnips'
@@ -64,6 +66,7 @@ Plug 'folke/trouble.nvim'
 
 Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 Plug 'ray-x/navigator.lua'
+Plug 'onsails/lspkind-nvim'
 
 call plug#end()
 
@@ -79,7 +82,6 @@ lua require("todo")
 " LSP
 lua require("lspcommon")
 
-" completion setup
 augroup CompletionTriggerCharacter
     autocmd!
     autocmd BufEnter * let g:completion_trigger_character = ['.']
@@ -104,14 +106,15 @@ let g:completion_enable_snippet = 'UltiSnips'
 "   au FileType java lua require('java')
 " augroup end
 
+autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua require("lspgo").goimports(1000)
 
 lua require("navigator")
 lua require("eviline")
 lua require("barbar")
-" treesitter
-lua require("troublecnf")
+lua require("lspkindcnf")
 
 
 " NOTE: If barbar's option dict isn't created yet, create it
@@ -267,15 +270,7 @@ augroup Binary
   au BufWritePost *.class set nomod | endif
 augroup END
 
-" run :GoBuild or :GoTestCompile based on the go file
-function! s:build_go_files()
-  let l:file = expand('%')
-  if l:file =~# '^\f\+_test\.go$'
-    call go#test#Test(0, 1)
-  elseif l:file =~# '^\f\+\.go$'
-    call go#cmd#Build(0)
-  endif
-endfunction
+lua require("troublecnf")
 
 "Try to install new plugin
 "autocmd VimEnter * PlugInstall
