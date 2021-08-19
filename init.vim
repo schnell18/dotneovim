@@ -79,6 +79,25 @@ lua require("todo")
 " LSP
 lua require("lspcommon")
 
+" completion setup
+augroup CompletionTriggerCharacter
+    autocmd!
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.c,*.cpp let g:completion_trigger_character = ['.', '::']
+augroup end
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+imap <tab> <Plug>(completion_smart_tab)
+imap <s-tab> <Plug>(completion_smart_s_tab)
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
+" Code snippets
+let g:completion_enable_snippet = 'UltiSnips'
+
+
 " enable jdtls for java files
 " augroup java
 "   au!
@@ -181,15 +200,6 @@ augroup highlight_yank
 augroup END
 
 nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
-
-" Completion
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" -------------------- LSP ---------------------------------
-
-" Code snippets
-let g:completion_enable_snippet = 'UltiSnips'
 
 " Fuzzy finder
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
