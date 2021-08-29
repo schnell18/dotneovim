@@ -13,8 +13,6 @@ Plug 'sainnhe/edge'
 Plug 'neovim/nvim-lspconfig'
 Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
-Plug 'kosayoda/nvim-lightbulb'
-
 
 " Code snippets
 Plug 'SirVer/ultisnips'
@@ -68,6 +66,7 @@ Plug 'ray-x/guihua.lua', {'do': 'cd lua/fzy && make' }
 Plug 'ray-x/navigator.lua'
 Plug 'onsails/lspkind-nvim'
 
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " treesitter
@@ -106,7 +105,6 @@ let g:completion_enable_snippet = 'UltiSnips'
 "   au FileType java lua require('java')
 " augroup end
 
-autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua require("lspgo").goimports(1000)
