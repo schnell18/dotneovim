@@ -67,6 +67,10 @@ Plug 'ray-x/navigator.lua'
 Plug 'onsails/lspkind-nvim'
 
 Plug 'hashivim/vim-terraform'
+" unit test
+Plug 'vim-test/vim-test'
+" for test result output
+Plug 'preservim/vimux'
 call plug#end()
 
 " treesitter
@@ -215,6 +219,8 @@ nnoremap <leader>tr :NvimTreeRefresh<CR>
 nnoremap <leader>tn :NvimTreeFindFile<CR>
 " NvimTreeOpen and NvimTreeClose are also available if you need them
 
+" golang extra mappings
+nnoremap ,g :!go run %<CR>
 
 " Debugging
 lua require("debug")
@@ -249,6 +255,16 @@ nmap a= :Tabularize /=<CR>
 vmap a= :Tabularize /=<CR>
 nmap a: :Tabularize /:\zs<CR>
 vmap a: :Tabularize /:\zs<CR>
+
+" mappings for unit test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
+" make test commands execute using vimux
+" requires plugin preservim/vimux be installed
+let test#strategy = "vimux"
 
 augroup Chinese
   au!
