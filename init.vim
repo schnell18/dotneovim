@@ -257,11 +257,11 @@ nmap a: :Tabularize /:\zs<CR>
 vmap a: :Tabularize /:\zs<CR>
 
 " mappings for unit test
-nmap <silent> t<C-n> :TestNearest<CR>
-nmap <silent> t<C-f> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+nmap <silent> ,tn :TestNearest -v<CR>
+nmap <silent> ,tf :TestFile -v<CR>
+nmap <silent> ,ts :TestSuite -v<CR>
+nmap <silent> ,tl :TestLast<CR>
+nmap <silent> ,tg :TestVisit<CR>
 " make test commands execute using vimux
 " requires plugin preservim/vimux be installed
 let test#strategy = "vimux"
