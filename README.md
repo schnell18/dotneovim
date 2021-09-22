@@ -1,12 +1,14 @@
 # 简介
 
+![neovim DAP sample](images/vim-dap-example.gif "neovim DAP sample")
+
 dotneovim 是一种高效的管理 Vim 配置及插件的方式。
 本项目要求使用 neovim 0.5.0+，采用 [plug][1] 管理以下插件：
 
-- mhinz/vim-startify
 - tpope/vim-sensible
 - sainnhe/edge
 - neovim/nvim-lspconfig
+- kabouzeid/nvim-lspinstall
 - nvim-lua/completion-nvim
 - SirVer/ultisnips
 - honza/vim-snippets
@@ -20,18 +22,32 @@ dotneovim 是一种高效的管理 Vim 配置及插件的方式。
 - glepnir/galaxyline.nvim
 - nvim-telescope/telescope-dap.nvim
 - mfussenegger/nvim-dap
+- rcarriga/nvim-dap-ui
+- theHamsta/nvim-dap-virtual-text
 - mfussenegger/nvim-dap-python
 - pwntester/octo.nvim
 - tpope/vim-commentary
 - tpope/vim-repeat
-- tpope/vim-unimpaired
 - godlygeek/tabular
 - hotoo/pangu.vim
+- glepnir/dashboard-nvim
+- folke/which-key.nvim
+- romgrk/barbar.nvim
+- folke/todo-comments.nvim
+- folke/trouble.nvim
+- ray-x/guihua.lua
+- ray-x/navigator.lua
+- onsails/lspkind-nvim
+- hashivim/vim-terraform
+- vim-test/vim-test
+- rcarriga/vim-ultest
+- preservim/vimux
 
 添加或更新插件时需要执行：
 
     :source %
     :PackInstall
+
 
 ## MacOS X 及 Unix 安装方法
 
@@ -45,33 +61,33 @@ dotneovim 是一种高效的管理 Vim 配置及插件的方式。
 
 ## Python, golang, Rust Language Server 配置
 
-为获得最佳使用效果，请安装以下命令工具:
+为获得最佳使用效果，请安装以下命令工具：
 
-- [ripgrep][2] -- 用于telescope 插件的 live grep
-- [gh][3] -- github CLI
+- [ripgrep][2] -- 用于 telescope 插件的 live grep
 - [gopls][4] -- golang language server
 - [pyright][5] -- Python language server
 - [rust\_analyzer][6] -- Rust language server
+- [dlv][9] -- golang debugger
 
 可使用 homebrew 安装 ripgrep, gh, rust\_analyzer :
 
     brew install ripgrep gh rust_analyzer
 
-安装 gopls 请使用以下命令:
+安装 gopls 请使用以下命令：
 
     GO111MODULE=on go get golang.org/x/tools/gopls@latest
 
 如果有无法连接的问题，请尝试使用代理服务。
 
-安装pyright请使用以命令:
+安装 pyright 请使用以命令：
 
     npm install -g pyright
 
 ## jtdls Java Language Server 的设置
 
-jdtls Java Language Server有多种安装方式，具体可以参考[nvim-jdtls官方文档][7]。
+jdtls Java Language Server 有多种安装方式，具体可以参考 [nvim-jdtls 官方文档][7]。
 
-以下为MacOS X上推荐安装方法。
+以下为 MacOS X 上推荐安装方法。
 安装 OpenJDK 11+。建议使用 SDKMan 安装。示例：
 
     sdk install java 11.0.2.hs-adpt
@@ -114,7 +130,7 @@ jdtls Java Language Server有多种安装方式，具体可以参考[nvim-jdtls�
       --add-opens java.base/java.util=ALL-UNNAMED \
       --add-opens java.base/java.lang=ALL-UNNAMED
 
-如果是Linux系统，请把-configuration 改为__"$HOME/apps/jdtls/config_mac"__
+如果是 Linux 系统，请把 -configuration 改为__"$HOME/apps/jdtls/config_mac"__
 
 
 [1]: https://github.com/junegunn/vim-plug
@@ -125,3 +141,4 @@ jdtls Java Language Server有多种安装方式，具体可以参考[nvim-jdtls�
 [6]: https://github.com/rust-analyzer/rust-analyzer
 [7]: https://github.com/mfussenegger/nvim-jdtls#language-server-installation
 [8]: https://download.eclipse.org/jdtls/milestones/
+[9]: https://github.com/go-delve/delve
