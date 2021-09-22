@@ -69,6 +69,7 @@ Plug 'onsails/lspkind-nvim'
 Plug 'hashivim/vim-terraform'
 " unit test
 Plug 'vim-test/vim-test'
+Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 " for test result output
 Plug 'preservim/vimux'
 call plug#end()
@@ -204,14 +205,15 @@ augroup highlight_yank
   autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
 augroup END
 
-nnoremap <Space>v :e ~/.config/nvim/init.exp2.vim<CR>
-
 " Fuzzy finder
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fl <cmd>Telescope git_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+nnoremap <leader>fl <cmd>Telescope git_files<CR>
+"nnoremap <leader>fb <cmd>Telescope buffers<CR>
+nnoremap <leader>fb <cmd>Telescope dap list_breakpoints<CR>
+nnoremap <leader>fc <cmd>Telescope dap configurations<CR>
+nnoremap <leader>fm <cmd>Telescope dap frames<CR>
 
 " File explorer
 nnoremap <leader>tt :NvimTreeToggle<CR>
@@ -223,7 +225,8 @@ nnoremap <leader>tn :NvimTreeFindFile<CR>
 nnoremap ,g :!go run %<CR>
 
 " Debugging
-lua require("debug")
+lua require("debug.all")
+
 nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
 nnoremap <silent> <leader>dd :lua require('dap').continue()<CR>
 nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
@@ -233,9 +236,11 @@ nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
 nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
 nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
-nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>`
-nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
-vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
+nnoremap <silent> <leader>dl :lua require'dap'.repl.run_last()<CR>
+nnoremap <silent> <leader>e :lua require'dapui'.eval()<CR>
+
+" nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
+" vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>
 
 
 " Persistent undo
@@ -257,14 +262,17 @@ nmap a: :Tabularize /:\zs<CR>
 vmap a: :Tabularize /:\zs<CR>
 
 " mappings for unit test
-nmap <silent> ,tn :TestNearest -v<CR>
-nmap <silent> ,tf :TestFile -v<CR>
 nmap <silent> ,ts :TestSuite -v<CR>
 nmap <silent> ,tl :TestLast<CR>
 nmap <silent> ,tg :TestVisit<CR>
 " make test commands execute using vimux
 " requires plugin preservim/vimux be installed
 let test#strategy = "vimux"
+
+" mappings for unit test using vim-ultest
+nmap <silent> ,tf :Ultest<CR>
+nmap <silent> ,tn :UltestNearest<CR>
+nmap <silent> ,td :UltestDebugNearest<CR>
 
 augroup Chinese
   au!
