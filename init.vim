@@ -72,6 +72,8 @@ Plug 'vim-test/vim-test'
 Plug 'rcarriga/vim-ultest', { 'do': ':UpdateRemotePlugins' }
 " for test result output
 Plug 'preservim/vimux'
+" for database access
+Plug 'vim-scripts/dbext.vim'
 call plug#end()
 
 " treesitter
