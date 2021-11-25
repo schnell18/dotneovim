@@ -1,18 +1,18 @@
 local dap = require "dap"
 
 dap.adapters.go = function(callback, config)
-    local handle, pid_or_err, port = nil, nil, 12346
+    local handle, pid_or_err, port = nil, nil, 38697
 
-    handle, pid_or_err = vim.loop.spawn("dlv", {
-        args = {"dap", "-l", "127.0.0.1:" .. port},
-        detached = true,
-        cwd = vim.loop.cwd()
-    }, vim.schedule_wrap(function(code)
-        handle:close()
-        print("Delve has exited with: " .. code)
-    end))
+    -- handle, pid_or_err = vim.loop.spawn("arch -arch arm64 dlv", {
+    --     args = {"dap", "-l", "127.0.0.1:" .. port, "--log", '--log-output="dap"'},
+    --     detached = true,
+    --     cwd = vim.loop.cwd()
+    -- }, vim.schedule_wrap(function(code)
+    --     handle:close()
+    --     print("Delve has exited with: " .. code)
+    -- end))
 
-    if not handle then error("FAILED:", pid_or_err) end
+    -- if not handle then error("FAILED:", pid_or_err) end
 
     vim.defer_fn(function()
         callback {type = "server", host = "127.0.0.1", port = port}

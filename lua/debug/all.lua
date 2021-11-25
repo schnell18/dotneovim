@@ -11,34 +11,34 @@ vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''
 vim.g.dap_virtual_text = true
 
 -- setup ultest for debug
-require("ultest").setup({
-  builders = {
-    ['go#gotest'] = function (cmd)
-      local args = {}
-      for i = 3, #cmd - 1, 1 do
-        local arg = cmd[i]
-        if vim.startswith(arg, "-") then
-          -- Delve requires test flags be prefix with 'test.'
-          arg = "-test." .. string.sub(arg, 2)
-        end
-        args[#args + 1] = arg
-      end
-      return {
-        dap = {
-          type = "go",
-          request = "launch",
-          mode = "test",
-          program = "${fileDirname}",
-          dlvToolPath = vim.fn.exepath("dlv"),
-          args = args
-        },
-        parse_result = function(lines)
-          return lines[#lines] == "FAIL" and 1 or 0
-        end
-      }
-    end
-  }
-})
+-- require("ultest").setup({
+--   builders = {
+--     ['go#gotest'] = function (cmd)
+--       local args = {}
+--       for i = 3, #cmd - 1, 1 do
+--         local arg = cmd[i]
+--         if vim.startswith(arg, "-") then
+--           -- Delve requires test flags be prefix with 'test.'
+--           arg = "-test." .. string.sub(arg, 2)
+--         end
+--         args[#args + 1] = arg
+--       end
+--       return {
+--         dap = {
+--           type = "go",
+--           request = "launch",
+--           mode = "test",
+--           program = "${fileDirname}",
+--           dlvToolPath = vim.fn.exepath("dlv"),
+--           args = args
+--         },
+--         parse_result = function(lines)
+--           return lines[#lines] == "FAIL" and 1 or 0
+--         end
+--       }
+--     end
+--   }
+-- })
 
 -- setup nvim-dap-ui
 map('n', '<leader>du', '<Cmd>lua require("dapui").toggle()<CR>')
