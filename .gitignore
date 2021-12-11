@@ -1,6 +1,14 @@
 *~
+*tar
+*tgz
+*bz2
+*xz
 *swp
+*swo
+*pyc
+*pyo
 tags
+*old
 .netrwhist
 .metals/
 plugged/

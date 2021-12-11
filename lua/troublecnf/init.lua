@@ -3,7 +3,7 @@ require("trouble").setup {
     height = 10,
     width = 50,
     icons = true,
-    mode = "lsp_workspace_diagnostics",
+    mode = "workspace_diagnostics",
     fold_open = "",
     fold_closed = "",
     action_keys = {

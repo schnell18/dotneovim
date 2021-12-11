@@ -11,7 +11,8 @@ Plug 'sainnhe/edge'
 
 " LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'kabouzeid/nvim-lspinstall'
+Plug 'williamboman/nvim-lsp-installer'
+" Plug 'kabouzeid/nvim-lspinstall'
 Plug 'nvim-lua/completion-nvim'
 
 " Code snippets
@@ -116,7 +117,7 @@ let g:completion_enable_snippet = 'UltiSnips'
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua require("lspgo").goimports(1000)
 
-lua require("navigator")
+" lua require("navigatorcnf")
 lua require("eviline")
 lua require("barbar")
 lua require("lspkindcnf")
@@ -217,12 +218,6 @@ nnoremap <leader>fb <cmd>Telescope dap list_breakpoints<CR>
 nnoremap <leader>fc <cmd>Telescope dap configurations<CR>
 nnoremap <leader>fm <cmd>Telescope dap frames<CR>
 
-" File explorer
-nnoremap <leader>tt :NvimTreeToggle<CR>
-nnoremap <leader>tr :NvimTreeRefresh<CR>
-nnoremap <leader>tn :NvimTreeFindFile<CR>
-" NvimTreeOpen and NvimTreeClose are also available if you need them
-
 " golang extra mappings
 nnoremap ,g :!go run %<CR>
 
@@ -295,6 +290,13 @@ augroup Binary
 augroup END
 
 lua require("troublecnf")
+
+" nvim-tree
+lua require("nvimtreecnf")
+
+" nnoremap <Leader>tt :NvimTreeToggle<CR>
+" nnoremap <Leader>tr :NvimTreeRefresh<CR>
+" nnoremap <Leader>tn :NvimTreeOpen<CR>
 
 "Try to install new plugin
 "autocmd VimEnter * PlugInstall
