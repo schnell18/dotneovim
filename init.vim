@@ -294,9 +294,9 @@ lua require("troublecnf")
 " nvim-tree
 lua require("nvimtreecnf")
 
-" nnoremap <Leader>tt :NvimTreeToggle<CR>
-" nnoremap <Leader>tr :NvimTreeRefresh<CR>
-" nnoremap <Leader>tn :NvimTreeOpen<CR>
+nnoremap <Leader>tt :NvimTreeToggle<CR>
+nnoremap <Leader>tr :NvimTreeRefresh<CR>
+nnoremap <Leader>tn :NvimTreeOpen<CR>
 
 "Try to install new plugin
 "autocmd VimEnter * PlugInstall
