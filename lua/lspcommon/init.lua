@@ -58,13 +58,13 @@ local function make_config()
   }
 end
 
--- lsp-install
+-- nvim-lsp-installer
 local function setup_servers()
   local lsp_installer = require('nvim-lsp-installer')
   lsp_installer.on_server_ready(function(server)
     local config = require("lsp" .. server.name).enrich(make_config())
     server:setup(config)
-    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+--    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
   end)
 end
 

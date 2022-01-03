@@ -1,14 +1,61 @@
 # 简介
 
+dotneovim 是一种利用 git 管理 Neovim 配置及插件的方式。
+本项目使用了纯 Lua 脚本配置 noevim，并借助 LSP，实现了可扩展的多语言开发环境。
+以下为 golang 的开发环境示例：
+
+
 ![neovim DAP sample](images/vim-dap-example.gif "neovim DAP sample")
 
-dotneovim 是一种高效的管理 Vim 配置及插件的方式。
-本项目要求使用 neovim 0.5.0+，采用 [plug][1] 管理以下插件：
+本项目要求使用 neovim 0.5.0+， 添加或更新插件时需要执行：
+
+    :source %
+    :PackInstall
+
+
+## MacOS X 及 Unix 安装方法
+
+请使用以下命令将 dotvim 克隆到本地
+
+    git clone https://github.com/schnell18/dotneovim ~/.neovim
+
+然后请创建符号链接，指向 home 目录下的.vim/vimrc 文件：
+
+    ln -s ~/.neovim ~/.config/nvim
+
+## Python, golang, Rust Language Server 配置
+
+为获得最佳使用效果，请安装以下命令工具：
+
+- [ripgrep][2] -- 用于 telescope 插件的 live grep
+- [gopls][4] -- golang language server
+- [pyright][5] -- Python language server
+- [rust\_analyzer][6] -- Rust language server
+- [dlv][7] -- golang debugger
+- [jq][8] -- Powerful JSON CLI processor
+
+可使用 homebrew 安装 ripgrep, gh, rust\_analyzer :
+
+    brew install ripgrep gh rust_analyzer
+
+安装 gopls 请使用以下命令：
+
+    GO111MODULE=on go get golang.org/x/tools/gopls@latest
+
+如果有无法连接的问题，请尝试使用代理服务。
+
+安装 pyright 请使用以命令：
+
+    npm install -g pyright
+
+## Plugin installed
+
+本项目采用 [plug][1] 管理插件，以下是预装的插件清单：
 
 - tpope/vim-sensible
 - sainnhe/edge
 - neovim/nvim-lspconfig
-- kabouzeid/nvim-lspinstall
+- williamboman/nvim-lsp-installer
 - nvim-lua/completion-nvim
 - SirVer/ultisnips
 - honza/vim-snippets
@@ -43,95 +90,6 @@ dotneovim 是一种高效的管理 Vim 配置及插件的方式。
 - rcarriga/vim-ultest
 - preservim/vimux
 
-添加或更新插件时需要执行：
-
-    :source %
-    :PackInstall
-
-
-## MacOS X 及 Unix 安装方法
-
-请使用以下命令将 dotvim 克隆到本地
-
-    git clone https://github.com/schnell18/dotneovim ~/.neovim
-
-然后请创建符号链接，指向 home 目录下的.vim/vimrc 文件：
-
-    ln -s ~/.neovim ~/.config/nvim
-
-## Python, golang, Rust Language Server 配置
-
-为获得最佳使用效果，请安装以下命令工具：
-
-- [ripgrep][2] -- 用于 telescope 插件的 live grep
-- [gopls][4] -- golang language server
-- [pyright][5] -- Python language server
-- [rust\_analyzer][6] -- Rust language server
-- [dlv][9] -- golang debugger
-
-可使用 homebrew 安装 ripgrep, gh, rust\_analyzer :
-
-    brew install ripgrep gh rust_analyzer
-
-安装 gopls 请使用以下命令：
-
-    GO111MODULE=on go get golang.org/x/tools/gopls@latest
-
-如果有无法连接的问题，请尝试使用代理服务。
-
-安装 pyright 请使用以命令：
-
-    npm install -g pyright
-
-## jtdls Java Language Server 的设置
-
-jdtls Java Language Server 有多种安装方式，具体可以参考 [nvim-jdtls 官方文档][7]。
-
-以下为 MacOS X 上推荐安装方法。
-安装 OpenJDK 11+。建议使用 SDKMan 安装。示例：
-
-    sdk install java 11.0.2.hs-adpt
-
-安装 Gradle。建议使用 SDKMan 安装。示例：
-
-    sdk install gradle
-
-安装 jdtls Java Language Server
-从 [Eclipse 官网下载][8] jdtls, 以 1.2.0 为例：
-
-    wget https://download.eclipse.org/jdtls/milestones/1.2.0/jdt-language-server-1.2.0-202106301459.tar.gz
-    mkdir -p ~/apps/jdtls
-    tar -xzvf jdt-language-server-1.2.0-202106301459.tar.gz -C ~/apps/jdtls
-
-创建名为 java-lsp.sh 的可执行脚本，包含以下内容：
-
-    #!/bin/sh
-
-    # NOTE:
-    # This doesn't work as is on Windows. You'll need to create an equivalent `.bat` file instead
-    #
-    # NOTE:
-    # If you're not using Linux you'll need to adjust the `-configuration` option
-    # to point to the `config_mac' or `config_win` folders depending on your system.
-
-    JAR="$HOME/apps/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"
-    GRADLE_HOME=$HOME/.sdkman/candidates/groovy/current $HOME/.sdkman/candidates/java/11.0.2-open/bin/java \
-      -Declipse.application=org.eclipse.jdt.ls.core.id1 \
-      -Dosgi.bundles.defaultStartLevel=4 \
-      -Declipse.product=org.eclipse.jdt.ls.core.product \
-      -Dlog.protocol=true \
-      -Dlog.level=ALL \
-      -Xms1g \
-      -Xmx2G \
-      -jar $(echo "$JAR") \
-      -configuration "$HOME/apps/jdtls/config_mac" \
-      -data "${1:-$HOME/workspace}" \
-      --add-modules=ALL-SYSTEM \
-      --add-opens java.base/java.util=ALL-UNNAMED \
-      --add-opens java.base/java.lang=ALL-UNNAMED
-
-如果是 Linux 系统，请把 -configuration 改为__"$HOME/apps/jdtls/config_mac"__
-
 
 [1]: https://github.com/junegunn/vim-plug
 [2]: https://github.com/BurntSushi/ripgrep
@@ -139,6 +97,5 @@ jdtls Java Language Server 有多种安装方式，具体可以参考 [nvim-jdtl
 [4]: https://github.com/golang/tools/blob/master/gopls/README.md
 [5]: https://github.com/BurntSushi/ripgre://github.com/microsoft/pyright
 [6]: https://github.com/rust-analyzer/rust-analyzer
-[7]: https://github.com/mfussenegger/nvim-jdtls#language-server-installation
-[8]: https://download.eclipse.org/jdtls/milestones/
-[9]: https://github.com/go-delve/delve
+[7]: https://github.com/go-delve/delve
+[8]: https://stedolan.github.io/jq/
