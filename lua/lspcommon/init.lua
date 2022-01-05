@@ -64,15 +64,8 @@ local function setup_servers()
   lsp_installer.on_server_ready(function(server)
     local config = require("lsp" .. server.name).enrich(make_config())
     server:setup(config)
---    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+    vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
   end)
 end
 
 setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
--- require('lspinstall').post_install_hook = function ()
---   setup_servers() -- reload installed servers
---   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
--- end
-
