@@ -11,12 +11,16 @@ Plug 'sainnhe/edge'
 -- LSP
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
--- Plug 'kabouzeid/nvim-lspinstall'
-Plug 'nvim-lua/completion-nvim'
 
--- Code snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+
+Plug "saadparwaiz1/cmp_luasnip" -- snippet completions
+Plug "L3MON4D3/LuaSnip" --snippet engine
+Plug "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
 -- Fuzzy finder
 Plug 'nvim-lua/popup.nvim'
@@ -65,7 +69,6 @@ Plug 'folke/trouble.nvim'
 
 Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug 'ray-x/navigator.lua'
-Plug 'onsails/lspkind-nvim'
 
 Plug 'hashivim/vim-terraform'
 -- unit test

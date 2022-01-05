@@ -1,5 +1,6 @@
 local cmd = vim.cmd
 local utils = require("utils")
+
 require("options")
 require("plugins")
 
@@ -18,7 +19,8 @@ require("lspcommon")
 -- require("navigatorcnf")
 require("eviline")
 require("barbar")
-require("lspkindcnf")
+
+require("nvimcmp")
 
 --Debugging
 require("debug.all")
@@ -63,19 +65,6 @@ let g:dashboard_custom_shortcut={
 
 ]])
 
---let g:dashboard_custom_header = [
---      \'   ⠀⠀⠀⠀⠀⠀⠀⠀⢀⣠⣤⣴⣶⣶⣶⣶⣶⠶⣶⣤⣤⣀⠀⠀⠀⠀⠀⠀ ',
---      \' ⠀⠀⠀⠀⠀⠀⠀⢀⣤⣾⣿⣿⣿⠁⠀⢀⠈⢿⢀⣀⠀⠹⣿⣿⣿⣦⣄⠀⠀⠀ ',
---      \' ⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⠿⠀⠀⣟⡇⢘⣾⣽⠀⠀⡏⠉⠙⢛⣿⣷⡖⠀ ',
---      \' ⠀⠀⠀⠀⠀⣾⣿⣿⡿⠿⠷⠶⠤⠙⠒⠀⠒⢻⣿⣿⡷⠋⠀⠴⠞⠋⠁⢙⣿⣄ ',
---      \' ⠀⠀⠀⠀⢸⣿⣿⣯⣤⣤⣤⣤⣤⡄⠀⠀⠀⠀⠉⢹⡄⠀⠀⠀⠛⠛⠋⠉⠹⡇ ',
---      \' ⠀⠀⠀⠀⢸⣿⣿⠀⠀⠀⣀⣠⣤⣤⣤⣤⣤⣤⣤⣼⣇⣀⣀⣀⣛⣛⣒⣲⢾⡷ ',
---      \' ⢀⠤⠒⠒⢼⣿⣿⠶⠞⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁⠀⣼⠃ ',
---      \' ⢮⠀⠀⠀⠀⣿⣿⣆⠀⠀⠻⣿⡿⠛⠉⠉⠁⠀⠉⠉⠛⠿⣿⣿⠟⠁⠀⣼⠃⠀ ',
---      \' ⠈⠓⠶⣶⣾⣿⣿⣿⣧⡀⠀⠈⠒⢤⣀⣀⡀⠀⠀⣀⣀⡠⠚⠁⠀⢀⡼⠃⠀⠀ ',
---      \' ⠀⠀⠀⠈⢿⣿⣿⣿⣿⣿⣷⣤⣤⣤⣤⣭⣭⣭⣭⣭⣥⣤⣤⣤⣴⣟⠁    ',
---      \ ]
-
 cmd([[
     let g:edge_style = 'aura'
     let g:edge_enable_italic = 1
@@ -118,10 +107,10 @@ utils.create_augroup({
     {'BufWritePost', '*.class', 'set nomod | endif'},
 }, 'Binary')
 
-utils.create_augroup({
-    {'BufEnter', '*', [[ let g:completion_trigger_character = ['.'] ]]},
-    {'BufEnter', '*.c,*.cpp', [[ let g:completion_trigger_character = ['.', '::'] ]]},
-}, 'CompletionTriggerCharacter')
+-- utils.create_augroup({
+--     {'BufEnter', '*', [[ let g:completion_trigger_character = ['.'] ]]},
+--     {'BufEnter', '*.c,*.cpp', [[ let g:completion_trigger_character = ['.', '::'] ]]},
+-- }, 'CompletionTriggerCharacter')
 
 cmd([[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting() ]])
 cmd([[ autocmd BufWritePre *.go lua require("lspgopls").goimports(1000) ]])
