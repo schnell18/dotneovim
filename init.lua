@@ -25,6 +25,8 @@ require("nvimcmp")
 --Debugging
 require("debug.all")
 
+require("gitsignscnf")
+
 --NOTE: If barbar's option dict isn't created yet, create it
 cmd([[
     let bufferline = get(g:, 'bufferline', {})

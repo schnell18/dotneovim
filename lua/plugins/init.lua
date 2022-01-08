@@ -79,5 +79,8 @@ Plug 'preservim/vimux'
 -- for database access
 Plug 'vim-scripts/dbext.vim'
 
+-- Gitsigns
+Plug 'lewis6991/gitsigns.nvim'
+
 vim.call('plug#end')
 
