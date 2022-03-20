@@ -22,14 +22,14 @@ end
 dap.configurations.go = {
     {
         type = "go",
-        name = "Debug",
+        name = "Debug program",
         request = "launch",
         showLog = true,
         program = "${file}",
         -- console = "externalTerminal",
         dlvToolPath = vim.fn.exepath "dlv"
     }, {
-        name = "Test Current File",
+        name = "Debug Test",
         type = "go",
         request = "launch",
         showLog = true,
