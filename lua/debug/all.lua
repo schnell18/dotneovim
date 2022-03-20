@@ -44,17 +44,17 @@ require("ultest").setup({
 map('n', '<leader>du', '<Cmd>lua require("dapui").toggle()<CR>')
 map('n', '<leader>e', '<Cmd>lua require("dapui").eval()<CR>')
 
--- map('n', '<leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
--- map('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>")
--- map('n', '<leader>dd', "<Cmd>lua require('dap').continue()<CR>")
--- map('n', '<F10>', "<Cmd>lua require'dap'.step_over()<CR>")
--- map('n', '<F11>', "<Cmd>lua require'dap'.step_into()<CR>")
--- map('n', '<F12>', "<Cmd>lua require'dap'.step_out()<CR>")
--- map('n', '<leader>b', "<Cmd>lua require'dap'.toggle_breakpoint()<CR>")
--- map('n', '<leader>B', "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
--- map('n', '<leader>lp', "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
--- map('n', '<leader>dr', "<Cmd>lua require'dap'.repl.open()<CR>")
--- map('n', '<leader>dl', "<Cmd>lua require'dap'.repl.run_last()<CR>`")
+map('n', '<leader>dui', '<Cmd>lua require("dapui").toggle()<CR>')
+map('n', '<F5>', "<Cmd>lua require'dap'.continue()<CR>")
+map('n', '<leader>dd', "<Cmd>lua require('dap').continue()<CR>")
+map('n', '<F10>', "<Cmd>lua require'dap'.step_over()<CR>")
+map('n', '<F11>', "<Cmd>lua require'dap'.step_into()<CR>")
+map('n', '<F12>', "<Cmd>lua require'dap'.step_out()<CR>")
+map('n', '<leader>b', "<Cmd>lua require'dap'.toggle_breakpoint()<CR>")
+map('n', '<leader>B', "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
+map('n', '<leader>lp', "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
+map('n', '<leader>dr', "<Cmd>lua require'dap'.repl.open()<CR>")
+map('n', '<leader>dl', "<Cmd>lua require'dap'.repl.run_last()<CR>`")
 
 -- nnoremap <silent> <leader>dn :lua require('dap-python').test_method()<CR>
 -- vnoremap <silent> <leader>ds <ESC>:lua require('dap-python').debug_selection()<CR>

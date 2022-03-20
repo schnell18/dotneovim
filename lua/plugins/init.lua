@@ -37,7 +37,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 
 -- Status line
-Plug 'glepnir/galaxyline.nvim'
+-- Plug 'glepnir/galaxyline.nvim'
+-- temp workaround for deprecated warning when upgrade to neovim 0.6.1
+Plug 'https://github.com/schnell18/galaxyline.nvim.git'
 
 -- Debugging
 Plug 'nvim-telescope/telescope-dap.nvim'
