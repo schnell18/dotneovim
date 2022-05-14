@@ -23,6 +23,12 @@ set.expandtab=true
 set.undofile=true
 set.undodir=vim.env.HOME .. "/.neovim/undo"
 
+set.list=true
+set.listchars="eol:↵,trail:~,tab:>-,nbsp:␣"
+
+-- neovim 0.7 global status line
+set.laststatus=3
+
 if vim.fn.has('termguicolors') == 1 then
   set.termguicolors = true
 end

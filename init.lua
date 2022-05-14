@@ -38,6 +38,21 @@ cmd([[
     let bufferline.clickable = v:true
 ]])
 
+
+-- strip trailing spaces on save
+cmd([[
+    function! StripTrailingWhitespaces()
+        let l = line(".")
+        let c = col(".")
+        %s/\s\+$//e
+        call cursor(l, c)
+    endfun
+
+    autocmd BufWritePre * if &ft =~ 'yaml\|javascript\|xml\|sh\|lua\|python\|json\|java\|golang' | :call StripTrailingWhitespaces() | endif
+
+]])
+
+
 --startup screen configuration
 cmd([[
 let g:dashboard_default_executive ='telescope'
@@ -77,9 +92,12 @@ cmd([[
 cmd([[ syntax enable ]])
 cmd([[ filetype plugin indent on ]])
 
+cmd([[ set laststatus=3 ]])
+
+
 
 --Automatically install missing plugins on startup
-cmd([[ 
+cmd([[
     autocmd VimEnter *
       \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
       \|   PlugInstall --sync | q
@@ -124,6 +142,14 @@ require("nvimtreecnf")
 
 require("keymaps")
 
+-- vimtex setup
+-- cmd([[
+-- let g:tex_flavor = 'latex'
+-- let g:vimtex_view_general_viewer = 'zathura'
+-- let g:vimtex_view_method = 'zathura'
+
+-- let g:vimtex_compiler_progname = 'nvr'
+-- ]])
+
 -- Try to install new plugin
 -- autocmd VimEnter * PlugInstall
-

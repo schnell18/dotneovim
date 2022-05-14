@@ -84,5 +84,8 @@ Plug 'vim-scripts/dbext.vim'
 -- Gitsigns
 Plug 'lewis6991/gitsigns.nvim'
 
+-- vimtex
+-- Plug 'lervag/vimtex'
+
 vim.call('plug#end')
 
