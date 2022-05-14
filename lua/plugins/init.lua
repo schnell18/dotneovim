@@ -49,7 +49,7 @@ Plug 'theHamsta/nvim-dap-virtual-text'
 Plug 'mfussenegger/nvim-dap-python'
 
 -- Github integration
-Plug 'pwntester/octo.nvim'
+-- Plug 'pwntester/octo.nvim'
 
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
@@ -86,6 +86,9 @@ Plug 'lewis6991/gitsigns.nvim'
 
 -- vimtex
 -- Plug 'lervag/vimtex'
+
+-- colorizer
+Plug 'norcalli/nvim-colorizer.lua'
 
 vim.call('plug#end')
 

@@ -1,7 +1,6 @@
 local cmd = vim.cmd
 local utils = require("utils")
 
-require("options")
 require("plugins")
 
 --treesitter
@@ -27,6 +26,7 @@ require("debug.all")
 
 require("gitsignscnf")
 
+require("options")
 --NOTE: If barbar's option dict isn't created yet, create it
 cmd([[
     let bufferline = get(g:, 'bufferline', {})
