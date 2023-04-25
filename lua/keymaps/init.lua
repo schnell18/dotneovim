@@ -74,6 +74,10 @@ map("v", "a=", ":Tabularize /=<CR>")
 map("n", "a:", ":Tabularize /:\\zs<CR>")
 map("v", "a:", ":Tabularize /:\\zs<CR>")
 
+-- mappings for ansible-vault
+map("v", "vae", ":!vault-encrypt.sh<CR>")
+map("v", "vad", ":!vault-decrypt.sh<CR>")
+
 
 -- golang extra mappings
 map("n", ",g", ":!go run %<CR>")

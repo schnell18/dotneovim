@@ -22,10 +22,10 @@ require("barbar")
 
 require("nvimcmp")
 
+require("gitsignscnf")
+
 --Debugging
 require("debug.all")
-
-require("gitsignscnf")
 
 --NOTE: If barbar's option dict isn't created yet, create it
 cmd([[
