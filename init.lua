@@ -18,7 +18,11 @@ require("lspcommon")
 
 -- require("navigatorcnf")
 require("eviline")
-require("barbar")
+-- require("barbar").setup{
+--   auto_hide = true,
+--   clickable = true,
+--   closable = true,
+-- }
 
 require("nvimcmp")
 
@@ -27,45 +31,71 @@ require("gitsignscnf")
 --Debugging
 require("debug.all")
 
---NOTE: If barbar's option dict isn't created yet, create it
-cmd([[
-    let bufferline = get(g:, 'bufferline', {})
-    " Enable/disable auto-hiding the tab bar when there is a single buffer
-    let bufferline.auto_hide = v:true
-    " Enable/disable close button
-    let bufferline.closable = v:true
-    " Enables/disable clickable tabs
-    let bufferline.clickable = v:true
-]])
-
 --startup screen configuration
-cmd([[
-let g:dashboard_default_executive ='telescope'
+require("dashboard").setup({
+  theme = 'doom',
+  config = {
+    header = {
+      '                                                    ',
+      '                                                    ',
+      '                                                    ',
+      '                                                    ',
+      '                                                    ',
+      '                                                    ',
+      ' ██╗   ██╗ ██████╗██╗      ██████╗ ██╗   ██╗██████╗ ',
+      ' ██║   ██║██╔════╝██║     ██╔═══██╗██║   ██║██╔══██╗',
+      ' ██║   ██║██║     ██║     ██║   ██║██║   ██║██║  ██║',
+      ' ██║   ██║██║     ██║     ██║   ██║██║   ██║██║  ██║',
+      ' ╚██████╔╝╚██████╗███████╗╚██████╔╝╚██████╔╝██████╔╝',
+      '  ╚═════╝  ╚═════╝╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝ ',
+      '                                                    ',
+      '                                                    ',
+      '                                                    ',
+    },
+    center = {
+      {
+        icon = ' ',
+        icon_hl = 'Title',
+        desc = 'Find File           ',
+        desc_hl = 'String',
+        key = 'b',
+        keymap = 'SPC f f',
+        key_hl = 'Number',
+        action = 'Telescope find_files'
+      },
+      {
+        icon = ' ',
+        desc = 'Git Status',
+        key = 's',
+        keymap = 'SPC f s',
+        action = 'Telescope git_status'
+      },
+      {
+        icon = ' ',
+        desc = 'New File',
+        key = 'n',
+        keymap = 'SPC f n',
+        action = 'buffer'
+      },
+      {
+        icon = ' ',
+        desc = 'Last Session',
+        key = 'l',
+        keymap = 'SPC f l',
+        action = 'Telescope last_session'
+      },
+      {
+        icon = ' ',
+        desc = 'Search',
+        key = 'g',
+        keymap = 'SPC f g',
+        action = 'Telescope live_grep'
+      },
+    },
+    footer = {}  --your footer
+  }
 
-let g:dashboard_custom_header = [
-\ '                                                       ',
-\ '                                                       ',
-\ ' ██╗   ██╗ ██████╗██╗      ██████╗ ██╗   ██╗██████╗ ',
-\ ' ██║   ██║██╔════╝██║     ██╔═══██╗██║   ██║██╔══██╗',
-\ ' ██║   ██║██║     ██║     ██║   ██║██║   ██║██║  ██║',
-\ ' ██║   ██║██║     ██║     ██║   ██║██║   ██║██║  ██║',
-\ ' ╚██████╔╝╚██████╗███████╗╚██████╔╝╚██████╔╝██████╔╝',
-\ '  ╚═════╝  ╚═════╝╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝ ',
-\ '                                                       ',
-\ '                                                       ',
-\]
-
-let g:dashboard_custom_shortcut={
-\ 'new_file'           : 'leader c n',
-\ 'last_session'       : 'leader s l',
-\ 'find_history'       : 'leader f h',
-\ 'find_file'          : 'leader f f',
-\ 'change_colorscheme' : 'leader t c',
-\ 'find_word'          : 'leader f g',
-\ 'book_marks'         : 'leader f b',
-\ }
-
-]])
+})
 
 cmd([[
     let g:edge_style = 'aura'
@@ -114,7 +144,7 @@ utils.create_augroup({
 --     {'BufEnter', '*.c,*.cpp', [[ let g:completion_trigger_character = ['.', '::'] ]]},
 -- }, 'CompletionTriggerCharacter')
 
-cmd([[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting() ]])
+cmd([[ autocmd BufWritePre *.go lua vim.lsp.buf.format() ]])
 cmd([[ autocmd BufWritePre *.go lua require("lspgopls").goimports(1000) ]])
 
 require("troublecnf")

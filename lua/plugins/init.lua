@@ -73,7 +73,7 @@ Plug 'ray-x/navigator.lua'
 Plug 'hashivim/vim-terraform'
 -- unit test
 Plug 'vim-test/vim-test'
-Plug('rcarriga/vim-ultest', { ['do'] = ':UpdateRemotePlugins' })
+-- Plug('rcarriga/vim-ultest', { ['do'] = ':UpdateRemotePlugins' })
 -- for test result output
 Plug 'preservim/vimux'
 -- for database access

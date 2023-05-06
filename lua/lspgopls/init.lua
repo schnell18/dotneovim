@@ -36,7 +36,7 @@ function _M.goimports(timeoutms)
   -- should be executed first.
   if action.edit or type(action.command) == "table" then
     if action.edit then
-      vim.lsp.util.apply_workspace_edit(action.edit)
+      vim.lsp.util.apply_workspace_edit(action.edit, "utf-16")
     end
     if type(action.command) == "table" then
       vim.lsp.buf.execute_command(action.command)
