@@ -36,6 +36,20 @@ M.dap_go = {
   }
 }
 
+M.gotests = {
+  plugin = true,
+  n = {
+    ["<leader>gtc"] = {
+      "<cmd> GoTestAdd <CR>",
+      "Add unit test for method/func under cursor"
+    },
+    ["<leader>gta"] = {
+      "<cmd> GoTestsAll <CR>",
+      "Add unit tests for all methods/funcs"
+    },
+  }
+}
+
 M.gopher = {
   plugin = true,
   n = {

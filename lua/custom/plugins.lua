@@ -3,8 +3,16 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "delve",
+        "gofumpt",
+        "goimports",
+        "goimports-reviser",
+        "golines",
+        "gomodifytags",
         "gopls",
-      }
+        "gotests",
+        "gotestsum",
+      },
     }
   },
   {
@@ -48,6 +56,14 @@ local plugins = {
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
     end
+  },
+  {
+    "yanskun/gotests.nvim",
+    ft = "go",
+    config = function()
+      require("gotests").setup()
+      require("core.utils").load_mappings("gotests")
+    end,
   },
 }
 return plugins
