@@ -1,155 +1,21 @@
-local cmd = vim.cmd
-local utils = require("utils")
+require "core"
 
-require("plugins")
+local custom_init_path = vim.api.nvim_get_runtime_file("lua/custom/init.lua", false)[1]
 
---treesitter
-require("treesitter")
+if custom_init_path then
+  dofile(custom_init_path)
+end
 
---which key
-require("whichkey")
+require("core.utils").load_mappings()
 
---todo comments
-require("todo")
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
---LSP
-require("lspcommon")
+-- bootstrap lazy.nvim!
+if not vim.loop.fs_stat(lazypath) then
+  require("core.bootstrap").gen_chadrc_template()
+  require("core.bootstrap").lazy(lazypath)
+end
 
--- require("navigatorcnf")
-require("eviline")
-require("barbar")
-
-require("nvimcmp")
-
---Debugging
-require("debug.all")
-
-require("gitsignscnf")
-
-require("options")
---NOTE: If barbar's option dict isn't created yet, create it
-cmd([[
-    let bufferline = get(g:, 'bufferline', {})
-    " Enable/disable auto-hiding the tab bar when there is a single buffer
-    let bufferline.auto_hide = v:true
-    " Enable/disable close button
-    let bufferline.closable = v:true
-    " Enables/disable clickable tabs
-    let bufferline.clickable = v:true
-]])
-
-
--- strip trailing spaces on save
-cmd([[
-    function! StripTrailingWhitespaces()
-        let l = line(".")
-        let c = col(".")
-        %s/\s\+$//e
-        call cursor(l, c)
-    endfun
-
-    autocmd BufWritePre * if &ft =~ 'yaml\|javascript\|xml\|sh\|lua\|python\|json\|java\|golang' | :call StripTrailingWhitespaces() | endif
-
-]])
-
-
---startup screen configuration
-cmd([[
-let g:dashboard_default_executive ='telescope'
-
-let g:dashboard_custom_header = [
-\ '                                                       ',
-\ '                                                       ',
-\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\ '                                                       ',
-\ '                                                       ',
-\]
-
-let g:dashboard_custom_shortcut={
-\ 'new_file'           : 'leader c n',
-\ 'last_session'       : 'leader s l',
-\ 'find_history'       : 'leader f h',
-\ 'find_file'          : 'leader f f',
-\ 'change_colorscheme' : 'leader t c',
-\ 'find_word'          : 'leader f g',
-\ 'book_marks'         : 'leader f b',
-\ }
-
-]])
-
-cmd([[
-    let g:edge_style = 'aura'
-    let g:edge_enable_italic = 1
-    let g:edge_disable_italic_comment = 1
-    colorscheme edge
-]])
-
-cmd([[ syntax enable ]])
-cmd([[ filetype plugin indent on ]])
-
-cmd([[ set laststatus=3 ]])
-
-
-
---Automatically install missing plugins on startup
-cmd([[
-    autocmd VimEnter *
-      \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-      \|   PlugInstall --sync | q
-      \| endif
-]])
-
-utils.create_augroup({
-    {'TextYankPost', '*', [[ silent! lua require('vim.highlight').on_yank() ]]},
-}, 'highlight_yank')
-
-utils.create_augroup({
-    {'BufWritePre', '/tmp/*', 'setlocal noundofile'},
-}, 'vimrc')
-
-utils.create_augroup({
-    {'BufWritePre', '*.markdown,*.md', 'call PanGuSpacing()'},
-    {'BufWritePre', '*.text,*.txt,*.wiki,*.cnx', 'call PanGuSpacing()'},
-}, 'Chinese')
-
-utils.create_augroup({
-    {'BufReadPre', '*.class', 'let &bin=1'},
-    {'BufReadPost', '*.class', 'if &bin | %!xxd'},
-    {'BufReadPost', '*.class', 'set ft=xxd | endif'},
-    {'BufWritePre', '*.class', 'if &bin | %!xxd -r'},
-    {'BufWritePre', '*.class', 'endif'},
-    {'BufWritePost', '*.class', 'if &bin | %!xxd'},
-    {'BufWritePost', '*.class', 'set nomod | endif'},
-}, 'Binary')
-
--- utils.create_augroup({
---     {'BufEnter', '*', [[ let g:completion_trigger_character = ['.'] ]]},
---     {'BufEnter', '*.c,*.cpp', [[ let g:completion_trigger_character = ['.', '::'] ]]},
--- }, 'CompletionTriggerCharacter')
-
-cmd([[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting() ]])
-cmd([[ autocmd BufWritePre *.go lua require("lspgopls").goimports(1000) ]])
-
-require("troublecnf")
-
---nvim-tree
-require("nvimtreecnf")
-
-require("keymaps")
-
--- vimtex setup
--- cmd([[
--- let g:tex_flavor = 'latex'
--- let g:vimtex_view_general_viewer = 'zathura'
--- let g:vimtex_view_method = 'zathura'
-
--- let g:vimtex_compiler_progname = 'nvr'
--- ]])
-
--- Try to install new plugin
--- autocmd VimEnter * PlugInstall
+dofile(vim.g.base46_cache .. "defaults")
+vim.opt.rtp:prepend(lazypath)
+require "plugins"
