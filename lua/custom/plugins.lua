@@ -65,5 +65,29 @@ local plugins = {
       require("core.utils").load_mappings("gotests")
     end,
   },
+  {
+      "nvim-treesitter/nvim-treesitter",
+      opts = {
+        ensure_installed = {
+          -- defaults
+          "vim",
+          "lua",
+          "python",
+
+          -- web dev
+          "html",
+          "css",
+          "javascript",
+          "typescript",
+          "tsx",
+          "json",
+          -- "vue", "svelte",
+
+         -- low level
+          "c",
+          "go"
+        },
+      },
+    },
 }
 return plugins
