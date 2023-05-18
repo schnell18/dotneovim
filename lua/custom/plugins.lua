@@ -12,6 +12,7 @@ local plugins = {
         "gopls",
         "gotests",
         "gotestsum",
+        "texlab",
       },
     }
   },
