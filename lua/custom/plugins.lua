@@ -91,4 +91,13 @@ local plugins = {
       },
     },
 }
+
+vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#3B4252"})
+vim.api.nvim_set_hl(0, "TelescopePromptBorder", {bg="#3B4252"})
+vim.api.nvim_set_hl(0, "TelescopeResultsBorder", {bg="#3B4252"})
+vim.api.nvim_set_hl(0, "TelescopePreviewBorder", {bg="#3B4252"})
+vim.api.nvim_set_hl(0, "TelescopeResultsTitle", {bg="#3B4252", fg="#5E81AC"})
+vim.api.nvim_set_hl(0, "TelescopePromptTitle", {bg="#3B4252", fg="#5E81AC"})
+vim.api.nvim_set_hl(0, "TelescopePreviewTitle", {bg="#3B4252", fg="#5E81AC"})
+
 return plugins

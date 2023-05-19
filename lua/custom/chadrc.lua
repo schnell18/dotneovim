@@ -22,7 +22,11 @@ M.ui = {
       '                                                    ',
       '                                                    ',
     },
-  }
+  },
+  statusline = {
+    theme = "default",
+    separator_style = "default",
+  },
 }
 M.plugins = "custom.plugins"
 M.mappings = require("custom.mappings")
