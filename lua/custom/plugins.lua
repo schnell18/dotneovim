@@ -13,6 +13,8 @@ local plugins = {
         "gotests",
         "gotestsum",
         "texlab",
+        "lua-language-server",
+        "json-lsp",
       },
     }
   },

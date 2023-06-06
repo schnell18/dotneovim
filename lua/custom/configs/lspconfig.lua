@@ -46,3 +46,9 @@ lspconfig.pylsp.setup{
     }
   }
 }
+
+lspconfig.jsonls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "vscode-json-language-server", "--stdio" },
+}
