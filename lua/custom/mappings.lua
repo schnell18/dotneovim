@@ -165,16 +165,16 @@ M.nvimtree = {
     ["<leader>te"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },
   },
 }
-
+---adfadf
 M.misc = {
   plugin = true,
   v = {
-    ["<leader>vae"] = {
-      "<cmd> !vault-encrypt.sh<CR>",
+    ["vae"] = {
+     ":!vault-encrypt.sh<CR>",
       "Encrypt as ansile-vault string"
     },
-    ["<leader>vad"] = {
-      "<cmd> !vault-decrypt.sh<CR>",
+    ["vad"] = {
+      ":!vault-decrypt.sh<CR>",
       "Decrypt ansile-vault string"
     },
   },
