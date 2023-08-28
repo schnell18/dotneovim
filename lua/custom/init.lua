@@ -2,6 +2,10 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
+-- configuration for vimtex
+vim.g.vimtex_view_method = 'zathura_simple'
+
+
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 

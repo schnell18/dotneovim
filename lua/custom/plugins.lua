@@ -19,6 +19,14 @@ local plugins = {
     }
   },
   {
+    "lervag/vimtex",
+    lazy = false,
+    -- opts = {
+    --   vimtex_view_method = 'zathura',
+    --   vimtex_view_general_viewer = 'zathura',
+    -- }
+  },
+  {
     "mfussenegger/nvim-dap",
     init = function ()
       require("core.utils").load_mappings("dap")
@@ -69,29 +77,34 @@ local plugins = {
     end,
   },
   {
-      "nvim-treesitter/nvim-treesitter",
-      opts = {
-        ensure_installed = {
-          -- defaults
-          "vim",
-          "lua",
-          "python",
+    "nvim-treesitter/nvim-treesitter",
+    opts = {
+      ensure_installed = {
+        -- defaults
+        "vim",
+        "lua",
+        "python",
 
-          -- web dev
-          "html",
-          "css",
-          "javascript",
-          "typescript",
-          "tsx",
-          "json",
-          -- "vue", "svelte",
+        -- web dev
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        -- "vue", "svelte",
 
-         -- low level
-          "c",
-          "go"
-        },
+       -- low level
+        "c",
+        "go"
       },
     },
+  },
+  {
+    -- column-wise alignment
+    'junegunn/vim-easy-align',
+    lazy = false
+  }
 }
 
 vim.api.nvim_set_hl(0, "TelescopeBorder", {bg="#3B4252"})

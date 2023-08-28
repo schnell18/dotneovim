@@ -165,7 +165,7 @@ M.nvimtree = {
     ["<leader>te"] = { "<cmd> NvimTreeFocus <CR>", "Focus nvimtree" },
   },
 }
----adfadf
+
 M.misc = {
   plugin = true,
   v = {
@@ -177,7 +177,21 @@ M.misc = {
       ":!vault-decrypt.sh<CR>",
       "Decrypt ansile-vault string"
     },
+    ["ga"] = {
+      ":EasyAlign<CR>",
+      "Align text as columns"
+    }
   },
+  n = {
+    ["ga"] = {
+      ":EasyAlign<CR>",
+      "Align text as columns"
+    }
+  },
+
+-- " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+-- nmap ga <Plug>(EasyAlign)
+
 }
 
 
