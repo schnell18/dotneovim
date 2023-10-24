@@ -1,10 +1,11 @@
 -- change <leader> to backslash
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
-
+vim.opt.colorcolumn = "79"
 -- configuration for vimtex
 vim.g.vimtex_view_method = 'zathura_simple'
-
+vim.g.vimtex_quickfix_open_on_warning = 0
+vim.vimtex_quickfix_autoclose_after_keystrokes = 1
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
