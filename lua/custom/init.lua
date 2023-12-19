@@ -37,23 +37,31 @@ autocmd('BufWritePre',  {group='javaclass', pattern='*.class', command='endif'})
 autocmd('BufWritePost', {group='javaclass', pattern='*.class', command='if &bin | %!xxd'})
 autocmd('BufWritePost', {group='javaclass', pattern='*.class', command='set nomod | endif'})
 
+local VIM_EDITTABLE_PATTERNS = {
+    '*.yml', '*.yaml', '*.js', '*.ts',
+    '*.md', '*.go', '*.xml', '*.java',
+    '*.py', '*.sh', '*.json', '*.pl',
+    '*.txt', '*.html', '*.tex', '*.bib',
+    '*.css', '*.sql', '*.lua', '*.ini',
+    '*.cls', 'Makefile', 'Dockerfile',
+}
 
 -- highlight trailing spaces
-vim.api.nvim_command([[
-  highlight EoLSpace ctermbg=red guibg=#892929
-  match EoLSpace /\s\+$/
-]])
+augroup('hlTrailingSpaces', {clear = true})
+autocmd({'BufRead', 'BufNewFile'}, {
+  pattern=VIM_EDITTABLE_PATTERNS,
+  group = 'hlTrailingSpaces',
+  callback = function ()
+    vim.api.nvim_command([[
+      highlight EoLSpace ctermbg=red guibg=#892929
+      match EoLSpace /\s\+$/
+    ]])
+  end
+})
 -- strip trailing spaces on save
 augroup('stripTrailingSpaces', {clear = true})
 autocmd('BufWritePre', {
-  pattern={
-    '*.yaml', '*.js', '*.ts', '*.md',
-    '*.go', '*.xml', '*.java', '*.py',
-    '*.sh', '*.json', '*.pl', '*.txt',
-    '*.html', '*.tex', '*.bib', '*.css',
-    '*.sql', '*.lua', '*.ini', '*.cls',
-    'Makefile', 'Dockerfile',
-  },
+  pattern=VIM_EDITTABLE_PATTERNS,
   group = 'stripTrailingSpaces',
   callback = function ()
     local save_cursor = vim.fn.getcurpos()
