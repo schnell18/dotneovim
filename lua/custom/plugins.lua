@@ -104,6 +104,10 @@ local plugins = {
     -- column-wise alignment
     'junegunn/vim-easy-align',
     lazy = false
+  },
+  {
+    "let-def/texpresso.vim",
+    lazy = false
   }
 }
 

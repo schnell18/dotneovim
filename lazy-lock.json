@@ -28,6 +28,7 @@
   "nvterm": { "branch": "main", "commit": "5ae78fb332e92447121d2af58a6313189a7799fb" },
   "plenary.nvim": { "branch": "master", "commit": "9ac3e9541bbabd9d73663d757e4fe48a675bb054" },
   "telescope.nvim": { "branch": "master", "commit": "ebf93395e79e5d026e3867d9e5e158b2bbe1499c" },
+  "texpresso.vim": { "branch": "main", "commit": "04816dcdddc27e6c50fc2a4faff0ef1675a7ee8e" },
   "ui": { "branch": "v2.0", "commit": "1eb880208af1a14829553b3808bfde9fd48b3de4" },
   "vim-easy-align": { "branch": "master", "commit": "12dd6316974f71ce333e360c0260b4e1f81169c3" },
   "vimtex": { "branch": "master", "commit": "5e50cc0e96e8a8ffc6fd10d627d65b8d1354b5da" },
