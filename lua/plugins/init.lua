@@ -3,7 +3,7 @@ return {
     "stevearc/conform.nvim",
     -- event = 'BufWritePre', -- uncomment for format on save
     config = function()
-      require "configs.conform"
+      require("configs.conform")
     end,
   },
 
@@ -12,7 +12,7 @@ return {
     "neovim/nvim-lspconfig",
     config = function()
       require("nvchad.configs.lspconfig").defaults()
-      require "configs.lspconfig"
+      require("configs.lspconfig")
     end,
   },
 
@@ -37,6 +37,8 @@ return {
         "gotestsum",
         "texlab",
         "json-lsp",
+        "ruff",
+        "stylua",
       },
     },
   },
@@ -45,10 +47,17 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
-        "vim", "lua", "vimdoc",
-        "html", "css", "javascript", "typescript",
-        "python", "bash", "perl",
-        "sql"
+        "vim",
+        "lua",
+        "vimdoc",
+        "html",
+        "css",
+        "javascript",
+        "typescript",
+        "python",
+        "bash",
+        "perl",
+        "sql",
       },
     },
   },
@@ -56,8 +65,8 @@ return {
   {
     "lervag/vimtex",
     -- lazy = false,
-    tag = 'v2.15',
-    ft = { 'tex' },
+    tag = "v2.15",
+    ft = { "tex" },
     init = function()
       -- setup bi-directory search with zathura is
       -- difficult, especially on MacOS as it requires
@@ -65,12 +74,12 @@ return {
       -- of TeXpresso which can do live preview
       -- vim.g.vimtex_view_method = 'zathura'
       -- vim.g.vimtex_view_general_viewer = 'zathura'
-    end
+    end,
   },
 
   {
     "let-def/texpresso.vim",
     -- lazy = false,
-    ft = { 'tex' },
+    ft = { "tex" },
   },
 }
