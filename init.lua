@@ -106,27 +106,29 @@ autocmd(
 )
 
 local VIM_EDITTABLE_PATTERNS = {
-  "*.yml",
-  "*.yaml",
-  "*.js",
-  "*.ts",
-  "*.md",
-  "*.go",
-  "*.xml",
-  "*.java",
-  "*.py",
-  "*.sh",
-  "*.json",
-  "*.pl",
-  "*.txt",
-  "*.html",
-  "*.tex",
+  "*.R",
   "*.bib",
-  "*.css",
-  "*.sql",
-  "*.lua",
-  "*.ini",
   "*.cls",
+  "*.css",
+  "*.go",
+  "*.html",
+  "*.ini",
+  "*.java",
+  "*.js",
+  "*.json",
+  "*.lua",
+  "*.md",
+  "*.pl",
+  "*.py",
+  "*.r",
+  "*.sh",
+  "*.sql",
+  "*.tex",
+  "*.ts",
+  "*.txt",
+  "*.xml",
+  "*.yaml",
+  "*.yml",
   "Makefile",
   "Dockerfile",
 }
@@ -149,7 +151,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd("BufWritePre", {
   pattern = VIM_EDITTABLE_PATTERNS,
   callback = function(args)
-    require("conform").format(args)
+    -- require("conform").format(args)
     local save_cursor = vim.fn.getcurpos()
     vim.api.nvim_command("%s/\\s\\+$//e")
     vim.fn.setpos(".", save_cursor)
