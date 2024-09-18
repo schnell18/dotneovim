@@ -50,13 +50,6 @@ vim.schedule(function()
   require("mappings")
 end)
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function(args)
-    require("conform").format({ bufnr = args.buf })
-  end,
-})
-
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -151,7 +144,6 @@ autocmd({ "BufRead", "BufNewFile" }, {
 autocmd("BufWritePre", {
   pattern = VIM_EDITTABLE_PATTERNS,
   callback = function(args)
-    -- require("conform").format(args)
     local save_cursor = vim.fn.getcurpos()
     vim.api.nvim_command("%s/\\s\\+$//e")
     vim.fn.setpos(".", save_cursor)
