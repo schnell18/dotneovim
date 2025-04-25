@@ -1,4 +1,4 @@
-vim.g.base46_cache = vim.fn.stdpath("data") .. "/nvchad/base46/"
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46/"
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.colorcolumn = "79"
@@ -7,23 +7,23 @@ vim.g.vimtex_quickfix_open_on_warning = 0
 vim.g.vimtex_quickfix_autoclose_after_keystrokes = 1
 
 -- bootstrap lazy and all plugins
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 
 if not vim.loop.fs_stat(lazypath) then
   local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({
+  vim.fn.system {
     "git",
     "clone",
     "--filter=blob:none",
     repo,
     "--branch=stable",
     lazypath,
-  })
+  }
 end
 
 vim.opt.rtp:prepend(lazypath)
 
-local lazy_config = require("configs.lazy")
+local lazy_config = require "configs.lazy"
 
 -- load plugins
 require("lazy").setup({
@@ -33,7 +33,7 @@ require("lazy").setup({
     branch = "v2.5",
     import = "nvchad.plugins",
     config = function()
-      require("options")
+      require "options"
     end,
   },
 
@@ -44,10 +44,11 @@ require("lazy").setup({
 dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
-require("nvchad.autocmds")
+require "options"
+require "nvchad.autocmds"
 
 vim.schedule(function()
-  require("mappings")
+  require "mappings"
 end)
 
 local augroup = vim.api.nvim_create_augroup
@@ -57,7 +58,7 @@ augroup("YankHighlight", { clear = true })
 autocmd("TextYankPost", {
   group = "YankHighlight",
   callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = "1000" })
+    vim.highlight.on_yank { higroup = "IncSearch", timeout = "1000" }
   end,
 })
 
@@ -69,34 +70,13 @@ autocmd("TextYankPost", {
 })
 
 augroup("javaclass", { clear = true })
-autocmd(
-  "BufReadPre",
-  { group = "javaclass", pattern = "*.class", command = "let &bin=1" }
-)
-autocmd(
-  "BufReadPost",
-  { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd" }
-)
-autocmd(
-  "BufReadPost",
-  { group = "javaclass", pattern = "*.class", command = "set ft=xxd | endif" }
-)
-autocmd(
-  "BufWritePre",
-  { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd -r" }
-)
-autocmd(
-  "BufWritePre",
-  { group = "javaclass", pattern = "*.class", command = "endif" }
-)
-autocmd(
-  "BufWritePost",
-  { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd" }
-)
-autocmd(
-  "BufWritePost",
-  { group = "javaclass", pattern = "*.class", command = "set nomod | endif" }
-)
+autocmd("BufReadPre", { group = "javaclass", pattern = "*.class", command = "let &bin=1" })
+autocmd("BufReadPost", { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd" })
+autocmd("BufReadPost", { group = "javaclass", pattern = "*.class", command = "set ft=xxd | endif" })
+autocmd("BufWritePre", { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd -r" })
+autocmd("BufWritePre", { group = "javaclass", pattern = "*.class", command = "endif" })
+autocmd("BufWritePost", { group = "javaclass", pattern = "*.class", command = "if &bin | %!xxd" })
+autocmd("BufWritePost", { group = "javaclass", pattern = "*.class", command = "set nomod | endif" })
 
 local VIM_EDITTABLE_PATTERNS = {
   "*.R",
@@ -132,10 +112,10 @@ autocmd({ "BufRead", "BufNewFile" }, {
   pattern = VIM_EDITTABLE_PATTERNS,
   group = "hlTrailingSpaces",
   callback = function()
-    vim.api.nvim_command([[
+    vim.api.nvim_command [[
       highlight EoLSpace ctermbg=red guibg=#892929
       match EoLSpace /\s\+$/
-    ]])
+    ]]
   end,
 })
 
@@ -145,7 +125,10 @@ autocmd("BufWritePre", {
   pattern = VIM_EDITTABLE_PATTERNS,
   callback = function(args)
     local save_cursor = vim.fn.getcurpos()
-    vim.api.nvim_command("%s/\\s\\+$//e")
+    vim.api.nvim_command "%s/\\s\\+$//e"
     vim.fn.setpos(".", save_cursor)
   end,
 })
+
+-- git setup
+require("gitsigns").setup()

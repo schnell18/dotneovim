@@ -1,67 +1,66 @@
 return {
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre",
     config = function()
-      require("configs.conform")
+      require "configs.conform"
     end,
   },
-
-  -- These are some examples, uncomment them if you want to see them work!
+  {
+    "mfussenegger/nvim-lint",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.lint"
+    end,
+  },
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("nvchad.configs.lspconfig").defaults()
-      require("configs.lspconfig")
+      require "configs.lspconfig"
     end,
   },
-
+  {
+    "williamboman/mason-lspconfig.nvim",
+    event = "VeryLazy",
+    dependencies = { "nvim-lspconfig" },
+    config = function()
+      require "configs.mason-lspconfig"
+    end,
+  },
+  {
+    "rshkarin/mason-nvim-lint",
+    event = "VeryLazy",
+    dependencies = { "nvim-lint" },
+    config = function()
+      require "configs.mason-lint"
+    end,
+  },
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "lua-language-server",
         "stylua",
-        -- "html-lsp",
-        -- "css-lsp",
-        -- "prettier",
-        "python-lsp-server",
         "delve",
         "gofumpt",
         "goimports",
         "goimports-reviser",
         "golines",
         "gomodifytags",
-        "gopls",
         "gotests",
         "gotestsum",
-        "texlab",
-        "json-lsp",
         "ruff",
-        "stylua",
       },
     },
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "vim",
-        "lua",
-        "vimdoc",
-        "html",
-        "css",
-        "javascript",
-        "typescript",
-        "python",
-        "bash",
-        "perl",
-        "sql",
-      },
-    },
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      require "configs.treesitter"
+    end,
   },
-
   {
     "lervag/vimtex",
     -- lazy = false,
@@ -82,4 +81,37 @@ return {
     -- lazy = false,
     ft = { "tex" },
   },
+  {
+    "mfussenegger/nvim-dap",
+    config = function()
+      require "configs.dap"
+    end,
+  },
+  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+  { "theHamsta/nvim-dap-virtual-text" },
+  { "nvim-telescope/telescope-dap.nvim" },
+  { "LiadOz/nvim-dap-repl-highlights" },
+  { "nvim-neotest/nvim-nio" },
+  { "lewis6991/gitsigns.nvim" },
+  {
+    "leoluz/nvim-dap-go",
+    ft = { "go" },
+    config = function()
+      require "configs.dapgo"
+    end,
+  },
+  -- unit test related plugins
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "antoinemadec/FixCursorHold.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require "configs.neotest"
+    end,
+  },
+  { "nvim-neotest/neotest-python" },
 }
