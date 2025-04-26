@@ -3,14 +3,14 @@ return {
     "stevearc/conform.nvim",
     event = "BufWritePre",
     config = function()
-      require "configs.conform"
+      require("configs.conform")
     end,
   },
   {
     "mfussenegger/nvim-lint",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require "configs.lint"
+      require("configs.lint")
     end,
   },
   {
@@ -18,7 +18,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("nvchad.configs.lspconfig").defaults()
-      require "configs.lspconfig"
+      require("configs.lspconfig")
     end,
   },
   {
@@ -26,15 +26,15 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-lspconfig" },
     config = function()
-      require "configs.mason-lspconfig"
+      require("configs.mason-lspconfig")
     end,
   },
   {
-    "rshkarin/mason-nvim-lint",
+    "schnell18/mason-nvim-lint",
     event = "VeryLazy",
     dependencies = { "nvim-lint" },
     config = function()
-      require "configs.mason-lint"
+      require("configs.mason-lint")
     end,
   },
   {
@@ -58,7 +58,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require "configs.treesitter"
+      require("configs.treesitter")
     end,
   },
   {
@@ -84,7 +84,7 @@ return {
   {
     "mfussenegger/nvim-dap",
     config = function()
-      require "configs.dap"
+      require("configs.dap")
     end,
   },
   { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
@@ -97,7 +97,7 @@ return {
     "leoluz/nvim-dap-go",
     ft = { "go" },
     config = function()
-      require "configs.dapgo"
+      require("configs.dapgo")
     end,
   },
   -- unit test related plugins
@@ -110,7 +110,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function()
-      require "configs.neotest"
+      require("configs.neotest")
     end,
   },
   { "nvim-neotest/neotest-python" },
