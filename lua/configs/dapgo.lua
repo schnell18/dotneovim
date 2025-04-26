@@ -1,5 +1,5 @@
 -- golang debug related setup
-require("dap-go").setup {
+require("dap-go").setup({
   -- Additional dap configurations can be added.
   -- dap_configurations accepts a list of tables where each entry
   -- represents a dap configuration. For more details do:
@@ -19,7 +19,8 @@ require("dap-go").setup {
       showLog = true,
       program = "${file}",
       -- console = "externalTerminal",
-      dlvToolPath = vim.fn.exepath "dlv",
+      dlvToolPath = vim.fn.exepath("dlv"),
+      repl_lang = "go",
     },
     {
       name = "Test Current File",
@@ -29,7 +30,7 @@ require("dap-go").setup {
       mode = "test",
       -- go test recognizes directory only
       program = "${fileDirname}",
-      dlvToolPath = vim.fn.exepath "dlv",
+      dlvToolPath = vim.fn.exepath("dlv"),
     },
   },
   -- delve configurations
@@ -60,7 +61,7 @@ require("dap-go").setup {
     -- an issue on delve versions < 1.24.0 for Windows where this needs to be
     -- set to false, otherwise the dlv server creation will fail.
     -- avaliable ui interactive function to prompt for build flags: get_build_flags
-    detached = vim.fn.has "win32" == 0,
+    detached = vim.fn.has("win32") == 0,
     -- the current working directory to run dlv from, if other than
     -- the current working directory.
     cwd = nil,
@@ -70,4 +71,4 @@ require("dap-go").setup {
     -- enables verbosity when running the test.
     verbose = false,
   },
-}
+})

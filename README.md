@@ -53,7 +53,8 @@ The following materials are useful for setting up a Golang development
 environment based NvChad.
 
 - [NvChad based Golang setup][6]
-- [gopls settings reference][6]
+- [gopls settings reference][7]
+- [Neovim Go(lang) Debug Setup][8]
 
 [1]: https://github.com/NvChad/NvChad/tree/v2.5
 [2]: https://github.com/BurntSushi/ripgrep
@@ -61,3 +62,4 @@ environment based NvChad.
 [5]: https://github.com/sharkdp/fd#installation
 [6]: https://github.com/ProgrammingRainbow/NvChad-2.5?tab=readme-ov-file#golang
 [7]: https://github.com/golang/tools/blob/master/gopls/doc/settings.md
+[8]: https://www.reddit.com/r/neovim/comments/1fi8qt7/neovim_golang_debug_setup/
