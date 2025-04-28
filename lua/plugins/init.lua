@@ -114,4 +114,46 @@ return {
     end,
   },
   { "nvim-neotest/neotest-python" },
+
+  -- AI plugins
+  -- {
+  --   "github/copilot.vim",
+  --   lazy = false,
+  --   event = { "BufEnter" },
+  -- },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      debug = false,
+      window = {
+        width = 0.25,
+      },
+    },
+    keys = {
+      {
+        "<Leader>ac",
+        ":'<,'>CopilotChat<CR>",
+        mode = { "v" },
+        desc = "Copilot Chat Selection",
+      },
+      {
+        "<Leader>ac",
+        ":CopilotChatToggle<CR>",
+        mode = { "n" },
+        desc = "Toggle Copilot Chat",
+      },
+    },
+  },
+  -- {
+  --   "Exafunction/windsurf.vim",
+  --   event = "BufEnter",
+  -- },
+
+  -- Misc
+  -- { "subnut/nvim-ghost.nvim", lazy = false },
 }
