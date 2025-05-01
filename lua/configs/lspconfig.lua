@@ -13,6 +13,7 @@ lspconfig.servers = {
   "pylsp",
   "gopls",
   "texlab",
+  "r_language_server",
 }
 
 -- list of servers configured with default config.
@@ -56,20 +57,20 @@ lspconfig.pylsp.setup({
   },
 })
 
--- lspconfig.r_language_server.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
---   settings = {
---     pylsp = {
---       plugins = {
---         pycodestyle = {
---           ignore = "W391",
---           maxLineLength = 100,
---         },
---       },
---     },
---   },
--- }
+lspconfig.r_language_server.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = {
+          ignore = "W391",
+          maxLineLength = 100,
+        },
+      },
+    },
+  },
+})
 
 lspconfig.gopls.setup({
   on_attach = function(client, bufnr)
