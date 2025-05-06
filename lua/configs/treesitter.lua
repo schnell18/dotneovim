@@ -2,7 +2,6 @@ local options = {
   ensure_installed = {
     "bash",
     "css",
-    "dap_repl",
     "html",
     "javascript",
     "lua",
