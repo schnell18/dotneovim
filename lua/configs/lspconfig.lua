@@ -19,6 +19,7 @@ lspconfig.servers = {
 -- list of servers configured with default config.
 local default_servers = {
   "ts_ls",
+  "bashls",
 }
 
 -- lsps with default config
