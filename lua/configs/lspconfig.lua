@@ -8,18 +8,19 @@ local util = require("lspconfig/util")
 
 -- list of all servers configured.
 lspconfig.servers = {
-  "lua_ls",
-  "ts_ls",
-  "pylsp",
+  "bashls",
   "gopls",
-  "texlab",
+  "lua_ls",
+  "pylsp",
   "r_language_server",
+  "texlab",
+  "ts_ls",
 }
 
 -- list of servers configured with default config.
 local default_servers = {
-  "ts_ls",
   "bashls",
+  "ts_ls",
 }
 
 -- lsps with default config
