@@ -25,5 +25,5 @@ end
 
 require("mason-nvim-lint").setup {
   ensure_installed = all_linters,
-  automatic_installation = false,
+  automatic_installation = true,
 }

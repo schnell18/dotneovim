@@ -42,14 +42,6 @@ return {
     opts = {
       ensure_installed = {
         "stylua",
-        "delve",
-        "gofumpt",
-        "goimports",
-        "goimports-reviser",
-        "golines",
-        "gomodifytags",
-        "gotests",
-        "gotestsum",
         "ruff",
       },
     },
@@ -87,7 +79,7 @@ return {
       require("configs.dap")
     end,
   },
-  { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap" } },
+  { "rcarriga/nvim-dap-ui",             dependencies = { "mfussenegger/nvim-dap" } },
   { "theHamsta/nvim-dap-virtual-text" },
   { "nvim-telescope/telescope-dap.nvim" },
   { "LiadOz/nvim-dap-repl-highlights" },
@@ -124,10 +116,10 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
-    build = "make tiktoken", -- Only on MacOS or Linux
+    build = "make tiktoken",                          -- Only on MacOS or Linux
     opts = {
       debug = false,
       window = {
@@ -149,6 +141,15 @@ return {
       },
     },
   },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    build = "cd app && npm install",
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown" }
+    end,
+    ft = { "markdown" },
+  }
   -- {
   --   "Exafunction/windsurf.vim",
   --   event = "BufEnter",

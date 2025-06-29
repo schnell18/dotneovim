@@ -22,4 +22,6 @@ map("n", "<Leader>fh", "<cmd> cprev<CR>")
 vim.g.copilot_no_tab_map = true
 vim.b.copilot_enabled = false
 
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+map("n", "<Leader>mq", "<cmd> MarkdownPreview<CR>")
+map("n", "<Leader>mqs", "<cmd> MarkdownPreviewStop<CR>")
+map("n", "<Leader>mqt", "<cmd> MarkdownPreviewToggle<CR>")
