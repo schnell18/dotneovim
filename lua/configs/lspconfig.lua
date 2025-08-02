@@ -12,7 +12,7 @@ lspconfig.servers = {
   "gopls",
   "lua_ls",
   "pylsp",
-  "r_language_server",
+  -- "r_language_server",
   "texlab",
   "ts_ls",
 }
@@ -39,7 +39,7 @@ lspconfig.texlab.setup({
   filetypes = { "tex", "plaintex", "bib" },
   root_dir = function(fname)
     return util.root_pattern(".latexmkrc")(fname)
-      or util.find_git_ancestor(fname)
+        or util.find_git_ancestor(fname)
   end,
   single_file_support = true,
 })
@@ -59,20 +59,10 @@ lspconfig.pylsp.setup({
   },
 })
 
-lspconfig.r_language_server.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    pylsp = {
-      plugins = {
-        pycodestyle = {
-          ignore = "W391",
-          maxLineLength = 100,
-        },
-      },
-    },
-  },
-})
+-- lspconfig.r_language_server.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+-- })
 
 lspconfig.gopls.setup({
   on_attach = function(client, bufnr)
