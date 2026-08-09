@@ -1,4 +1,4 @@
-local lspconfig = package.loaded["lspconfig"]
+local servers = require("configs.servers")
 
 -- List of servers to ignore during install
 local ignore_install = {}
@@ -15,7 +15,7 @@ end
 
 -- Build a list of lsp servers to install minus the ignored list.
 local all_servers = {}
-for _, s in ipairs(lspconfig.servers) do
+for _, s in ipairs(servers) do
   if not table_contains(ignore_install, s) then
     table.insert(all_servers, s)
   end
@@ -23,5 +23,5 @@ end
 
 require("mason-lspconfig").setup {
   ensure_installed = all_servers,
-  automatic_installation = true,
+  automatic_enable = true,
 }
