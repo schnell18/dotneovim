@@ -18,6 +18,7 @@ end)
 -- quickfix cnext
 map("n", "<Leader>fj", "<cmd> cnext<CR>")
 map("n", "<Leader>fh", "<cmd> cprev<CR>")
+map("n", "<Leader>ca", ":lua vim.lsp.buf.code_action()<CR>")
 
 vim.g.copilot_no_tab_map = true
 vim.b.copilot_enabled = false
